@@ -1,0 +1,7 @@
+{
+    "files.exclude": {
+
+        "**/*.map": {"when": "$(basename).map"}
+    },
+    "debug.node.autoAttach": "on"
+}

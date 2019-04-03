@@ -1,0 +1,22 @@
+{
+  "name": "typescript-mm-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.html",
+  "dependencies": {
+    "jquery": "^3.3.1"
+  },
+  "devDependencies": {
+    "@types/jquery": "3.3.4",
+    "@types/node": "10.3.4",
+    "lite-server": "2.3.0",
+    "ts-node": "^8.0.2",
+    "typescript": "^3.3.3"
+  },
+  "scripts": {
+    "lite": "lite-server",
+    "start": "npm run lite"
+  },
+  "author": "",
+  "license": "ISC"
+}
