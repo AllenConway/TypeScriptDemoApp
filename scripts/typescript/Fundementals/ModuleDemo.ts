@@ -46,11 +46,11 @@ export class LawnmowerEngine implements IEngine {
         //Prime the carburetor
         //Pull the clutch handle
         //Pull the cord
-        alert('A ' + this.horsepower + ' horsepower lawnmower engine started started!');
+        console.log('A ' + this.horsepower + ' horsepower lawnmower engine started started!');
     }
 
     stop() {
         //Let go of the clutch handle
-        alert('stopped');
+        console.log('stopped');
     }
 }

@@ -4,7 +4,7 @@
     //variable 'i' will be hoisted here after declared
     //var i;
  
-    alert(i); //undefined because variable is not 'hoisted' until declared
+    console.log(i); //undefined because variable is not 'hoisted' until declared
  
     for (var i = 0; i < 5; i++) {
        var j = i;
@@ -14,7 +14,7 @@
     //What will be displayed in the alert??
     //undefined or '5'
     //'i' is available because of variable hoisting or being 'lifted' to the top of the function
-    alert(i);  //5
+    console.log(i);  //5
  
  }());  //IIFE, run this Immediately
  
@@ -23,22 +23,22 @@
  (function () {
  
     var user = "Allen";
-    alert('user value: ' + user);  //user value: Allen
+    console.log('user value: ' + user);  //user value: Allen
  
     //1000 lines of JS later :S
  
     user = 1234;  //isn't user an ID??
-    alert('user value: ' + user); //user value: 1234
+    console.log('user value: ' + user); //user value: 1234
  
     //Another 1000 lines of JS later
     user = user + ' Conway';
-    alert('user value: ' + user); //user value: 1234 Conway
+    console.log('user value: ' + user); //user value: 1234 Conway
  
     //No type checking in JS, so this multiplication to assign value to what was a string succeeds at build.
     //var userId = "1234";
     var userId = "Allen";
     user = userId * 1;
-    alert('user value: ' + user);  //NaN
+    console.log('user value: ' + user);  //NaN
  
     OutsideScope();
  
@@ -49,5 +49,5 @@
  function OutsideScope() {
  
     //No warning or error on build that 'user' is not in scope here
-    alert("Outside Scope user value: " + user);  //'user is not defined' in debug window
+    console.log("Outside Scope user value: " + user);  //'user is not defined' in debug window
  }

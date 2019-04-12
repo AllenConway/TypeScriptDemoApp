@@ -31,7 +31,7 @@ var b = new Test.PrivateTest(); //Not accessible - it's not exported on 'test'
 
 module ClassInheritance {
 
-    export class Car {
+    export class Car {        
         constructor(public make: string, public model: string) {
 
         }
@@ -60,7 +60,7 @@ module ClassInheritance {
     }
 
     var myCar = new ClassInheritance.Car("Ford", "Mustang");
-    var coolEngine = new ClassInheritance.Engine(ClassInheritance.EngineType.V8, 320, 281, myCar.make, myCar.model);
+    var coolEngine = new ClassInheritance.Engine(EngineType.V8, 320, 281, myCar.make, myCar.model);
 
     //Use the import statement to reference exported classes from internal modules and give alias
     import CarTest = ClassInheritance.Car;

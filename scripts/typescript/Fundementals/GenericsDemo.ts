@@ -1,4 +1,5 @@
-﻿module GenericsDemo {
+﻿import { IEngine } from './ModuleDemo';
+module GenericsDemo {
 
     interface IGenericRepository<T> {
 
@@ -11,7 +12,7 @@
 
     interface ITest<T> {
 
-        erros: any;
+        errors: any;
         data: T;
         id;
 
@@ -55,7 +56,7 @@
             person2.id = 2;
             person2.firstName = "Jane";
             person2.lastName = "Smith";
-            people.push(person2);
+            people.push(person2);            
 
             return people;
         }
