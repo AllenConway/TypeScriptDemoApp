@@ -31,6 +31,7 @@ namespace ExtendingInterfaces {
         zip: "28715"
     }];
 
+    // Mock response values, with and without error metadata.
     let apiResponseNoError: ApiResponse<Customer, number> = {
         data: myCustomer,
         id: 123,

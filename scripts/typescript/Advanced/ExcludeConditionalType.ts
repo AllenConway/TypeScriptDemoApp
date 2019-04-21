@@ -1,90 +1,56 @@
-// namespace ExcludeConditionalTypes { 
+namespace ExcludeConditionalTypes {
 
-//     enum Fruits {
-//         apple = 1,
-//         pear = 2,
-//         bananna = 3,
-//         blueberry = 4,
-//         cantelope = 5,
-//         strawberry = 6,
-//         peach = 7
-//     }
+    // simple union type using primitives
+    type T00 = Exclude<"a" | "b" | "c" | "d", "c">;  //type T00 = "a" | "b" | "c"
+    type T01 = Exclude<1 | 2 | 3 | 4, 2>; //type T01 = 1 | 3 | 4
 
-//     enum Fruits2 {
-//         apple = 1,
-//     }
+    type User = {
+        id: number;
+        firstName: string;
+        lastName: string;
+        phone: number | string;
+        address1: string;
+        address2: string;
+        state: string;
+        zip: number | string;
+    };
+
+    // Leverage 'Exclude' and key of T to map a new type
+    type BasicUser = { [k in Exclude<keyof User, 'address1' | 'address2' | 'state' | 'zip'>]: User[k] };
+    let basicUser: BasicUser = {
+        id: 1000,
+        firstName: "Susan",
+        lastName: "Smith",
+        phone: "504-555-5555"
+    }
+
+    console.log(Object.keys(basicUser));
+    console.log(JSON.stringify(basicUser));
+
     
-//     type User = {
-//         id: string;
-//         firstName: string;
-//         lastName: string;
-//         phone: number;
-//         isAdmin: boolean;
-//       };
+    // Helper type defined that will create a new Type leveraging Exclude, key of T, and Pick
+    type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 
-//     type User2 = {
-//         id: string;
-//         isAdmin: boolean;
-//     }  
+    type Engine = {
+        cylinders: number;
+        blockType: string;
+        horsepower: number;
+        oilCapacity: number;
+        coolantCapacity: number;
+        powerSteeringCapacity: number;
+        differentialCapcity: number;
+        transmissionCapacity: number;
+    };
 
-//     type standardUser = Exclude<User, 'isAdmin'>;
-      
-//     type fruits = ['apple', 'pear'];
-//     type fruit = Exclude<fruits, 'apple'>;
-
-//     type r = Exclude<User, "id" | "registeredAt">;
-//     type rq = Extract<User, string>;
-//     type t = Pick<User, "name" | "location">;
+    type EngineFluidCapcity = Omit<Engine, "cylinders" | "blockType" | "horsepower">;
+    let myEngine: EngineFluidCapcity = {
+        oilCapacity: 5,
+        coolantCapacity: 8,
+        powerSteeringCapacity: .5,
+        differentialCapcity: 3.4,
+        transmissionCapacity: 12
+    }
+    console.log(Object.keys(myEngine));
+    console.log(JSON.stringify(myEngine));
     
-//       type fruits2 = Exclude<Fruits, Fruits2>;
-
-//     type Engine = {
-//         cylinders: number;
-//         blockType: string;
-//         horsepower: number;
-//         oilCapacity: number;
-//         coolantCapacity: number;
-//         powerSteeringCapacity: number;
-//         differentialCapcity: number;
-//         transmissionCapacity: number;
-//        };
-
-//     type Engine2 = {
-//         cylinders: number;
-//         blockType: string;
-//         someNewValue: boolean;
-//        };
-
-
-//     type lessEngine = Omit<Engine, "cylinders" | "blockType">;
-//     type lessEngine2 = Exclude<Engine2, Engine>;
-//     let myEngine:lessEngine = {
-//         horsepower: 1,
-//         oilCapacity: 1,
-//         coolantCapacity: 1,
-//         powerSteeringCapacity: 1,
-//         differentialCapcity: 1,
-//         transmissionCapacity: 1
-//     }
-
-//     let myEngine2:lessEngine2 = {
-//         horsepower: 1,
-//         oilCapacity: 1,
-//         coolantCapacity: 1,
-//         powerSteeringCapacity: 1,
-//         differentialCapcity: 1
-//     }
-    
-//     type T00 = Exclude<"a" | "b" | "c" | "d", "a" | "c" | "f">;
-//     type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
-//     type WinterFruits = Exclude<Fruits, 'apple' | 'peach' | 'pear'>;
-
-
-//     function ListWinterFruits(winterFruits: WinterFruits[]) {
-//         winterFruits.forEach(fruit => console.log(Fruits[fruit]));
-//     }
-
-//     let fruitSelection: WinterFruits[] = [Fruits.blueberry, Fruits.cantelope];
-//     let fruitSelectionInvalid: WinterFruits[] = [Fruits.blueberry, Fruits.peach];
-//     ListWinterFruits(fruitSelection);
-// }
+}

@@ -14,7 +14,7 @@ namespace Symbols {
     const sessionName = Symbol('sessionName');
 
     interface Person {
-        [firstName]: string; // symbol which is guarenteed to be uniqu and avoid collision
+        [firstName]: string; // symbol which is guarenteed to be unique and avoid collision
         firstName: string; // literal with identical name
         lastName: string
         [sessionName]: string;
@@ -27,7 +27,7 @@ namespace Symbols {
         [sessionName]: "TypeScript: Moving Beyond the Basics"
     }
 
-    //Symbols can't be iterated over
+    //Symbols can't be iterated over; notice show the log doesn't show the symbols [firstName] or [lastName]
     console.log(Object.keys(person));
 
     //Symbols can still be seen through reflection so they aren't _truly_ private

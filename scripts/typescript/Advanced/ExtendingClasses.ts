@@ -3,11 +3,14 @@ module ExtendingClasses {
     class Employee {
         private salary: number;
         protected bonus: number;
+        doSomething() {
+            console.log('You did something!');
+        }
     }
 
     interface Management extends Employee {
         init(): void;
-        managerId: number;
+        managerId: number;        
     }
 
     class Executives extends Employee implements Management {
@@ -16,6 +19,7 @@ module ExtendingClasses {
             // let income = this.salary;
             // protected members are accessible from inside the class and extending classes; works
             this.bonus = 10000;
+            this.doSomething();
         }
         managerId = 100;            
     }
@@ -32,5 +36,8 @@ module ExtendingClasses {
     //     managerId = 100;
     //     bonus = 200;
     // }
+
+    let executive = new Executives();
+    executive.init();
 
 }

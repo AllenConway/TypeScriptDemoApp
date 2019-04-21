@@ -1,24 +1,19 @@
 ﻿import { IEngine } from './ModuleDemo';
 module GenericsDemo {
 
-    interface IGenericRepository<T> {
-
+    interface GenericRepository<T> {
         getAll(): T[];
-
         save(entity: T);
-
     }
 
 
-    interface ITest<T> {
-
+    interface ApiResponse<T> {
         errors: any;
         data: T;
         id;
-
     }
 
-    interface ITest2 extends ITest<ITest2>  {
+    interface ITest2 extends ApiResponse<ITest2>  {
 
 
     }
@@ -28,18 +23,15 @@ module GenericsDemo {
         public id: number;
         public firstName: string;
         public lastName: string;
-
     }
 
     class Order {
-
         public id: number;
         public quantity: number;
         public description: string;
-
     }
 
-    class PersonRepository implements IGenericRepository<Person> {
+    class PersonRepository implements GenericRepository<Person> {
         getAll(): Person[] {
 
             //Just return some static data

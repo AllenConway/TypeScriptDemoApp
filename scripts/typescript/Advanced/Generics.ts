@@ -1,14 +1,4 @@
 namespace Generics {
-
-    interface GenericRepository<T> {
-        getAll(): T[]
-        save(entity: T);
-    }
-
-    interface PersonService{
-        save(person: Person);
-    }
-
     class Person {
         public id: number;
         public firstName: string;
@@ -21,15 +11,51 @@ namespace Generics {
         public description: string;
     }
 
+    // Without using generics
+    interface PersonRepository {
+        getAll(): Person[]
+        save(person: Person);
+    }
+
+    // Without using generics
+    interface OrderRepository {
+        getAll(): Person[]
+        save(person: Person);
+    }
+
+    // Using Generics
+    interface GenericRepository<T> {
+        getAll(): T[]
+        save(value: T);
+    }
+
+    //Without Generics
+    interface PersonService {
+        save(person: Person);
+    }
+
+    //Using Generics
+    interface CrudService<T> {
+        save(value: T);        
+    }
+
     class PersonApiService implements PersonService {
         save(person: Person) {
             //Persist Person object downstream...
+            console.log(`Saved Person with id: ${person.id}`);
         }        
+    }
+
+    class PersonCrudService implements CrudService<Person> {
+        save(value: Person) {
+        //Persist Person object downstream...
+        console.log(`Saved Person with id: ${value.id}`);
+        }   
     }
 
     class PersonRepository implements GenericRepository<Person> {
 
-        constructor(private personService: PersonService) { }
+        constructor(private personApiService: PersonApiService) { }
 
         getAll(): Person[] {                    
             let people: Array<Person> = new Array<Person>();
@@ -51,9 +77,9 @@ namespace Generics {
             return people;
         }
 
-        save(entity: Person) {            
-            this.personService.save(entity);
-            console.log(`Saved the following data: ${JSON.stringify(entity)}`);            
+        save(value: Person) {            
+            this.personApiService.save(value);
+            console.log(`Saved the following data: ${JSON.stringify(value)}`);
         }
 
     }
