@@ -1,3 +1,4 @@
+
 namespace TypesAndInterfaces {
     
 
@@ -14,7 +15,7 @@ namespace TypesAndInterfaces {
     }
 
     // Notice both defined above generate no JS; they are compile time features of TS
-
+    // Also notice the error is identical other than the identified type name if not implemented fully
     let personInterface: PersonInterface = {
         firstName: "Allen",
         lastName: "Conway",
@@ -32,10 +33,17 @@ namespace TypesAndInterfaces {
     console.log(JSON.stringify(personType));
     
     //Interfaces can extend Types
-    interface EmployeeInterface extends PersonType {
-
+    interface ManagerInterface extends PersonType {
+        managerId: number;
     }
-    
+    let managerInterface: ManagerInterface = {
+        managerId: 500,
+        firstName: "Jill",
+        lastName: "Anderson",
+        phone: "555-123-4567"
+    }
+
+    //Types using an intersection type
     interface EmployeeInterface {
         department: number;
     }
@@ -55,7 +63,7 @@ namespace TypesAndInterfaces {
         phone: string;
     }
 
-    //Interesting if you remove the implementation, IDE will prompt to implement 'Interface'
+    //Interesting if you remove the implementation, VSC will prompt to implement 'Interface'
     class PersonClassUsingType implements PersonType {
         firstName: string;        
         lastName: string;
@@ -75,14 +83,22 @@ namespace TypesAndInterfaces {
     //Use mapped types like Partial on types
     type ContractEmployeeType = Partial<PersonType & EmployeeType>;
     //Notice with use of Partial, not required from the point of definition to supply required fields
+    //Use Partial when wanting the ability to have type checking, but not the contraints of what's defined
     let contractEmployee: ContractEmployeeType = {
         lastName: "Jones",
         firstName: "Mary",
         department: 500
     }
     
-    //Types using Unions are more limited for implementing on classes and extending on interfaces
-    type TemporaryEmployeeType = (PersonType | Employee);
+    // Types using Unions are more limited for implementing on classes and extending on interfaces
+    // A union type describes a value that can be one of several types; can be either a PersonType or an EmployeeInterface
+    type TemporaryEmployeeType = (PersonType | EmployeeInterface);
+    let temporaryEmployeeType: TemporaryEmployeeType = {
+        firstName: "Henry",
+        lastName: "Davis",
+        phone: "555-321-9999"
+        //department: 200
+    }
     
     // Below will not work because the members aren't statically known:
     // "A class can only implement an object type or intersection of object types with statically known members"
@@ -91,13 +107,14 @@ namespace TypesAndInterfaces {
 
     // }
 
-    //Same for the interface example below using a type with a Union operator; same error
+    // Same for the interface example below using a type with a Union operator; same error
     // uncomment to see issue
     // interface TemporaryEmployeeInterface extends TemporaryEmployeeType {
 
     // }
 
-    //Types can't use Declaration Merging like Interfaces can leverage:
+    // Types can't use Declaration Merging like Interfaces can leverage:
+    // This is because tyes are a unique type entity
     // uncomment to see issue
     // type FullTimeEmployee = {
     //     id: number;
@@ -126,7 +143,9 @@ namespace TypesAndInterfaces {
         managerId: 456,
         daysPTO :25
     }
+    
 
     // Take note of the JavaScript transpiled from this file that is void of all the interface and type definitions
     // It's basically a bunch of object literals and the class examples
 }
+

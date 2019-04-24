@@ -1,4 +1,4 @@
-//note: becomes a IIFE when transpiled to JS
+//note: becomes a IIFE when transpiled to JS targeting ES5
 class FunctionsDemo {
 
     //This class method will end up being placed on the prototype of the object
@@ -33,7 +33,7 @@ let fullName = functionsDemo.formatName('Allen', 'Conway', 'Thomas');
 console.log(fullName);
 let shortName = functionsDemo.formatName('Allen', 'Conway');  //works as optional parameters are
 console.log(shortName);
-let phone = functionsDemo.formatNumber('5552995555');
+let phone = functionsDemo.formatNumber('8882995555');
 console.log(phone);
 let firstName = FunctionsDemo.convertToUpperCase('allen');
 console.log(firstName);

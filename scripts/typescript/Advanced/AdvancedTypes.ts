@@ -1,24 +1,43 @@
 namespace IntersectionTypes {
 
-    class Employee {
+    interface Employee {
+        getHours(): string;
+    }
+
+    interface User {
+        getLastLogin(): string;
+    }
+
+    type Admin = Employee & User;
+    let admin: Admin = {
+        getHours(): string {
+            return 'retreiving hours';
+        },
+        getLastLogin(): string {
+            return `Last Login: ${Date.now()}`;
+        }
+    }; 
+    console.log(admin.getHours());
+    console.log(admin.getLastLogin());
+
+    // Use helper extend with intersection types on 2 classes below to create a new type
+    class PersonClass implements Employee {
         getHours(): string {
             return 'retreiving hours';
         }
     }
 
-    class User {
+    class UserClass implements User {
         getLastLogin(): string {
             return `Last Login: ${Date.now()}`;
         }
     }
 
-    type Admin = Employee & User;
-    let admin: Admin;    
-    // console.log(admin.getHours());
-    // console.log(admin.getLastLogin());
-
     // Utility method that uses '&' intersection type combining multiple types into one
     function extend<First, Second>(first: First, second: Second): First & Second {
+        // Note: the returned object is a brand new instance not the original prototype
+        // None of the changes are reflected on the original class prototype
+        // Just a returned single use instance for specific needs within a given scope
         const result: Partial<First & Second> = {};
         for (const prop in first) {
             if (first.hasOwnProperty(prop)) {
@@ -33,7 +52,7 @@ namespace IntersectionTypes {
         return <First & Second>result;
     }
 
-    const adminUser = extend(Employee.prototype, User.prototype);    
+    const adminUser = extend(PersonClass.prototype, UserClass.prototype);    
     console.log(adminUser.getHours());
     console.log(adminUser.getLastLogin());
 
@@ -49,8 +68,8 @@ namespace UnionTypes {
     console.log(allowUnionTypeParameter("Hello"));
     console.log(allowUnionTypeParameter(null));
     // Lines below are not allowed    
-    // console.log(allowUnionTypeParameter(true));
-    // console.log(allowUnionTypeParameter(undefined));
+    //  console.log(allowUnionTypeParameter(true));
+    //  console.log(allowUnionTypeParameter(undefined));
 
     export interface Engine {
         manufacturer: string;
@@ -66,8 +85,9 @@ namespace UnionTypes {
         showCarMeta();
     }
 
-    export function getAutoInformation():Engine | Car {
-        // ...logic to determine what's being returned
+    export function getAutoInformation(): Engine | Car {
+        // ...logic to determine return type based on some rules
+        // Unions are valid but don't work as well as return types in all scenarios
         let myCar: Car = {
             color: "Red",
             model: "Mustang",
@@ -80,12 +100,20 @@ namespace UnionTypes {
     let carInformation = getAutoInformation();
     console.log(carInformation.manufacturer);
     // The line below is not valid as using a Union type, we can only see memebers that are in common (i.e. 'manufacturer')
+    // This value has the type Engine | Car, so we only know for certain that it has members that are in both Engine and Car
     // console.log(carInformation.model);
 }
 
 namespace StringLiteralTypes {
 
     type stringLiteralColors = "red" | "black" | "green" | "orange";
+
+    enum Colors {
+        Red = 1,
+        Black = 2,
+        Green = 3,
+        Orange = 4
+    }
 
     // Notice use of Union types in both input and return values being used :)
     function showColor(color: stringLiteralColors | Colors): string | number {
@@ -95,13 +123,7 @@ namespace StringLiteralTypes {
     // String literals will have intellisense on the string literal values
     console.log(showColor("red"));
     console.log(showColor("black"));
-
-    enum Colors {
-        Red = 1,
-        Black = 2,
-        Green = 3,
-        Orange = 4
-    }
+    // console.log(showColor("gray")); //not a valid literal
 
     // Enums will have intellisense on the enum options
     console.log(showColor(Colors.Black));

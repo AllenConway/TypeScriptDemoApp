@@ -19,14 +19,15 @@ namespace Generics {
 
     // Without using generics
     interface OrderRepository {
-        getAll(): Person[]
-        save(person: Person);
+        getAll(): Order[]
+        save(person: Order);
     }
 
-    // Using Generics
-    interface GenericRepository<T> {
+    // Using Generics now we have a single version of the repository
+    // with the type to be provided later by consuming code
+    interface GenericRepository<T, K> {
         getAll(): T[]
-        save(value: T);
+        save(value: T, otherValue: K);
     }
 
     //Without Generics
@@ -53,7 +54,14 @@ namespace Generics {
         }   
     }
 
-    class PersonRepository implements GenericRepository<Person> {
+    class OrderCrudService implements CrudService<Order> {
+        save(value: Order) {
+        //Persist Order object downstream...
+        console.log(`Saved Order with id: ${value.id}`);
+        }   
+    }
+
+    class PersonRepository implements GenericRepository<Person, 5> {
 
         constructor(private personApiService: PersonApiService) { }
 

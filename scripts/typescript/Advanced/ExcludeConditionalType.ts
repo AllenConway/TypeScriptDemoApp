@@ -29,6 +29,7 @@ namespace ExcludeConditionalTypes {
 
     
     // Helper type defined that will create a new Type leveraging Exclude, key of T, and Pick
+    // Omit was excluded from the TS library which we trivially created as Pick<T, Exclude<keyof T, K>> (returns in v3.5)
     type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 
     type Engine = {

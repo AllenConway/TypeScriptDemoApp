@@ -22,6 +22,7 @@ namespace Symbols {
 
     let person: Person = {        
         [firstName]: "Allen",
+        // [firstName]: 2,  //Not valid as the symbol [forstName] is a string
         firstName: "Allen",
         lastName: "Conway",
         [sessionName]: "TypeScript: Moving Beyond the Basics"

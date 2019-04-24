@@ -50,10 +50,10 @@ namespace DeclarationMerging {
     class OperateEngines implements Engine {
 
         // These are only added for example and not needed; the single implementation is below
-        start(engineType: Automobile);        
-        start(engineType: LawnMower);
-        start(engineType: Motorcycle);
-        start(engineType: Moped);
+        // start(engineType: Automobile);        
+        // start(engineType: LawnMower);
+        // start(engineType: Motorcycle);
+        // start(engineType: Moped);
 
         // Even though we merged the interface declaration and have overloaded signatures, there will only be one implementation selected
         // This is because the transpiled JS doesn't have types to differentiate, so the overloads are shown only at time of development
@@ -95,3 +95,17 @@ namespace DeclarationMerging {
     }
 
 }
+
+export class DeclarationMergingExternal {} //module
+declare global{
+    interface HTMLElement {
+        //Add additional functionality
+        myFunction();
+        myValue: string; 
+    }
+}
+
+let htmlElement: HTMLElement;
+htmlElement.nodeValue;    // existing interface members are avaliable 
+htmlElement.myFunction(); // merged function 
+htmlElement.myValue;

@@ -3,8 +3,6 @@ namespace Decorators {
     @message("Hello from the employee class")
     @sealed
     export class Employee {
-    //class Employee {
-    
         
         @adminOnly(123)
         @log //careful not to add ()

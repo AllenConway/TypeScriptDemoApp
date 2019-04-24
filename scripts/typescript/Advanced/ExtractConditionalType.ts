@@ -50,7 +50,7 @@ namespace ExtractConditionalTypes {
     console.log(Object.keys(myEngineMeta));
     console.log(JSON.stringify(myEngineMeta));
 
-    //Omit was excluded from the TS library which we trivially created as Pick<T, Exclude<keyof T, K>>
+    
     //No need for Include helper type above to be created, can use Pick directly for the same result    
     type EngineInfo = Pick<Engine, "cylinders" | "blockType" | "horsepower">;
     let myEngineInfo: EngineMeta = {

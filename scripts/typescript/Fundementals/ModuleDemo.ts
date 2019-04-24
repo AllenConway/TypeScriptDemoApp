@@ -31,6 +31,20 @@ export interface IEngine {
 
 }
 
+export default interface Engine {
+
+    
+
+    //Properties
+    horsepower: number;
+    cubicInches: number;
+
+    //Methods
+    start();
+    stop();
+
+}
+
 export interface Test {
 
     cubicInches: string;

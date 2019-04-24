@@ -40,9 +40,7 @@ namespace AsyncAwait {
 
     }
 
-    // Sample #1:
-    listCars();    
-    console.log('continuing execution...');
+
 
     function getDrivers(): Promise<Driver[]> {
         let drivers: Driver[] = [
@@ -69,9 +67,7 @@ namespace AsyncAwait {
 
     }
 
-    // Sample #2:
-    listDrivers();    
-    console.log('continuing execution...');
+
 
     async function getCarsandDrivers(): Promise<string> {
 
@@ -83,6 +79,13 @@ namespace AsyncAwait {
         return "All async complete";
     }
 
+
+    // Sample #1:
+    listCars();    
+    console.log('continuing execution...');
+    // Sample #2:
+    listDrivers();    
+    console.log('continuing execution...');
     // Sample #3 using multiple await calls:
     getCarsandDrivers().then(result => console.log(result));
 

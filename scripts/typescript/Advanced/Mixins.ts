@@ -1,7 +1,6 @@
 namespace MixinsUsingApply {
 
-    // using placeholders on an anemic class
-    // https://www.typescriptlang.org/docs/handbook/mixins.html
+    // using placeholders on an anemic class method
 
     class Employee {
         getHours(): string {
@@ -58,10 +57,10 @@ namespace MixinUsedElsewhere {
 
     // Notice how I don't need to call applyMixin again, and can create an instance of Administrator
     // If you remove the call to applyMixin above, this will fail, as no mixin has been created
-    const administratror = new MixinsUsingApply.Administrator();
-    console.log(administratror.getHours());
-    console.log(administratror.getSalary());
-    console.log(administratror.getLastLogin());
+    const administrator = new MixinsUsingApply.Administrator();
+    console.log(administrator.getHours());
+    console.log(administrator.getSalary());
+    console.log(administrator.getLastLogin());
 
 }
 
@@ -103,10 +102,10 @@ namespace MixinsUsingComposer {
         }
     }
 
-    class Administrator {        
+    export class Administrator {        
     }
 
-    const Admin = Employee(User(Management(Administrator)));
+    export const Admin = Employee(User(Management(Administrator)));
     const admin = new Admin();
     console.log(admin.getHours());
     console.log(admin.getSalary());
@@ -115,28 +114,6 @@ namespace MixinsUsingComposer {
 }
 
 namespace PlainOldJavaScriptMixin {
-
-    // let swim = {
-    //     setSwimProperties(speed, direction) {
-    //       this.speed = speed;
-    //       this.direction = direction;
-    //     },
-       
-    //     getSwimProperties(){
-    //       return `swimming ${this.speed} towards ${this.direction}`;
-    //     }
-    //    }
-       
-    //    class Reptile {
-    //     constructor(name) {
-    //       this.name = name;
-    //     }
-    //    }
-       
-    //    Object.assign(Reptile.prototype, swim);
-    //    let alligator = new Reptile("alligator");
-    //    alligator.setSwimProperties("5 m/s", "upstream");
-    //    console.log(alligator.getSwimProperties());
 
     class Employee {
         getHours() {

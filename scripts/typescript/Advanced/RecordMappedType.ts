@@ -13,6 +13,7 @@ namespace RecordMappedType {
     }
 
      // using the TypeScript Record type annotation
+     // restrict the key to a Color and a string as its corresponding value
     const mappedTypeRecord: Record<Color, string> = {
         [Color.Red]: "12345",
         [Color.Blue]: "",
@@ -20,10 +21,10 @@ namespace RecordMappedType {
     }
 
     const mappedTypeRecordUsingPartial: Partial<Record<Color, string>> = {
-        [Color.Red]: "12345"
+        [Color.Red]: "12345",
         // If Partial<T> is removed, this value wouldn't compile
-        // [Color.Blue]: "",
-        // [Color.Green]: ""
+        [Color.Blue]: "",
+        [Color.Green]: ""
     }
 
 }

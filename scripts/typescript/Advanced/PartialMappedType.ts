@@ -21,7 +21,7 @@ namespace PartialMappedType {
         phone: "555-123-9999"
     } 
 
-    // Make each property optional using a ? 
+    // Make each property optional using a ? (laborious)
     interface PartialEntryForm {
         firstName?: string,
         lastName?: string,
@@ -40,18 +40,19 @@ namespace PartialMappedType {
         zip: "70113"
     }
 
+    // use the Partial mapped type for the input parameter to the function
+    // allows use of the original interface and turns the the code on its head allowing control by the defining target
+    function submitEntry(entryForm: Partial<EntryForm>) {
+        return Object.keys(entryForm);
+    }   
+
     let entryFormPartialSubmission = {
         firstName: "Emily",
         lastName: "Jones"
     }
 
-    // use the Partial mapped type for the input parameter to the function
-    // allows use of the original interface and turns the the code on its head allowing control by the defining target
-    function submitEntry(entryForm: Partial<EntryForm>) {
-        console.log(Object.keys(entryForm));
-    }   
-    // submitEntry(entryFormFull); 
-    // submitEntry(entryFormPartial); 
-    submitEntry(entryFormPartialSubmission);
+    console.log(submitEntry(entryFormFull)); 
+    console.log(submitEntry(entryFormPartial)); 
+    console.log(submitEntry(entryFormPartialSubmission));
 
 }

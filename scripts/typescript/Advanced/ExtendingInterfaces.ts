@@ -1,5 +1,6 @@
 namespace ExtendingInterfaces {
 
+    //This could be an Interface from another library...
     interface Error  {
         errorId?: number;
         status?: number;
