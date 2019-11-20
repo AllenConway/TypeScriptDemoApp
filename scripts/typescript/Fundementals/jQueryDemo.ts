@@ -4,7 +4,8 @@
 //import $ from "../../node_modules/jquery/dist/jquery.min.js";
 //import * as JQuery from "../../node_modules/jquery/dist/jquery.min.js";
 import { Employee } from "./DecoratorsDemo.js";
-import { ContactInfo } from './ContactInfo.js';
+import { ContactInfo } from './ContactInfo';
+
 
 //module JQueryTest {
 "use strict";
@@ -28,7 +29,7 @@ window.onload = () => {
     colorChange.setElementColor("mainTitle", "red");
 
     const employee = new Employee();
-    employee.getSalary();
+    employee.getSalary();    
 
     const contactInfo = new ContactInfo();
     contactInfo.getContactInfo();

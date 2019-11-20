@@ -1,7 +1,7 @@
 namespace ExcludeConditionalTypes {
 
     // simple union type using primitives
-    type T00 = Exclude<"a" | "b" | "c" | "d", "c">;  //type T00 = "a" | "b" | "c"
+    type T00 = Exclude<"a" | "b" | "c" | "d", "c">;  //type T00 = "a" | "b" | "d"
     type T01 = Exclude<1 | 2 | 3 | 4, 2>; //type T01 = 1 | 3 | 4
 
     type User = {
@@ -29,8 +29,8 @@ namespace ExcludeConditionalTypes {
 
     
     // Helper type defined that will create a new Type leveraging Exclude, key of T, and Pick
-    // Omit was excluded from the TS library which we trivially created as Pick<T, Exclude<keyof T, K>> (returns in v3.5)
-    type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
+    // Omit was excluded from the TS library which we trivially created as Pick<T, Exclude<keyof T, K>> (returned in v3.5)
+    // type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 
     type Engine = {
         cylinders: number;

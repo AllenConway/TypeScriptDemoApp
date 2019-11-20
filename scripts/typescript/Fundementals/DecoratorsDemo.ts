@@ -1,7 +1,6 @@
 ﻿@message("Hello from the employee class")
 @sealed
 export class Employee {
-//class Employee {
 
     public firstName:string;
     public lastName:string;
@@ -13,7 +12,6 @@ export class Employee {
     }
 
 }
-
 
 //Method decorator
 //The expression for the method decorator will be called as a function at runtime, with the following three arguments:
@@ -41,6 +39,7 @@ function adminOnly(id: number) { //decorator factory
     };
 }
 
+// Prevents the modification of attributes of existing properties, and prevents the addition of new properties.
 function sealed(target: any) {
     //target: current object’s prototype i.e — Since employee is an object it will be, Employee.prototype
     console.log(target);

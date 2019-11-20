@@ -10,7 +10,7 @@ module TypesDemo {
     //1000 lines of TS later :S 
 
     //Can't assign a number to a string. Will not compile.
-    //user = 1234;   
+    // user = 1234;   
 
     //Another 1000 lines of TS later
     //This is OK because user is a string and concatenation works

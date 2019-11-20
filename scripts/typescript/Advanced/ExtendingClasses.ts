@@ -21,7 +21,7 @@ module ExtendingClasses {
             // let income = this.salary;
             // protected members are accessible from inside the class and extending classes; works
             this.bonus = 10000;
-            this.doSomething();
+            this.doSomething();            
         }
         managerId = 100;            
     }
@@ -36,7 +36,7 @@ module ExtendingClasses {
     // Error - property 'salary' is missing in Contractor
     // It's only possible for decendants of Employee or the class itself to implement the Managment interface because Employee
     // has a private member that originates in the same declaration which is a requirment for private members to be compatible
-    // If this is made to be a subtype of Employee
+    // If this is made to be a subtype of Employee, then it will work
     // class Contractor implements Management {
     //     doSomething(): void {
     //         console.log('You did something!');

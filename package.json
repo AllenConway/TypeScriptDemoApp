@@ -4,13 +4,13 @@
   "description": "",
   "main": "index.html",
   "dependencies": {
-    "jquery": "^3.3.1"
+    "jquery": "^3.4.1"
   },
   "devDependencies": {
-    "@types/jquery": "3.3.4",
-    "@types/node": "10.3.4",
-    "lite-server": "^2.4.0",
-    "typescript": "^3.3.3"
+    "@types/jquery": "^3.3.31",
+    "@types/node": "^10.17.5",
+    "lite-server": "^2.5.4",
+    "typescript": "^3.7.2"
   },
   "scripts": {
     "lite": "lite-server",

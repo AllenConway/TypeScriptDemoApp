@@ -180,7 +180,7 @@ namespace NullableTypes {
     lastName = null;
 
     // Test removing undefined while strictNullChecks is set to true
-    let phoneNumber: string | number | null | undefined;
+    let phoneNumber: string | number | null | undefined ;
     phoneNumber = "4071234567";
     phoneNumber = 4071234567;
     phoneNumber = null;

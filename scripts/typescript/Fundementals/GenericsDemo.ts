@@ -1,4 +1,4 @@
-﻿import { IEngine } from './ModuleDemo';
+﻿import { Engine } from './ModuleDemo';
 module GenericsDemo {
 
     interface GenericRepository<T> {
@@ -13,7 +13,7 @@ module GenericsDemo {
         id;
     }
 
-    interface ITest2 extends ApiResponse<ITest2>  {
+    interface Test2 extends ApiResponse<Test2>  {
 
 
     }

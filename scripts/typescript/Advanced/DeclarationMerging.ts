@@ -28,7 +28,7 @@ namespace DeclarationMerging {
 
     console.log(`Here is the car data: ${JSON.stringify(mustang)}`);
 
-    // ***Interface merging with funtions on Interfaces***
+    // ***Interface merging with functions on Interfaces***
     class Automobile { }
     class LawnMower { }
     class Motorcycle { }
@@ -96,8 +96,8 @@ namespace DeclarationMerging {
 
 }
 
-export class DeclarationMergingExternal {} //module
-declare global{
+export class DeclarationMergingExternal {} //sample module usage to allow use of "declare global"
+declare global{  //Augment the global scope
     interface HTMLElement {
         //Add additional functionality
         myFunction();

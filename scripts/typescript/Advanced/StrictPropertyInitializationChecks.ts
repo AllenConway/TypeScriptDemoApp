@@ -10,7 +10,7 @@ namespace StrictPropertyInitializationChecks {
 
     // // Using the optional field which includes undefined will be acceptable
     // class Person {
-    //     firstName: string;
+    //     firstName: string = "Allen";
     //     lastName: string;
     //     address1: string;
     //     address2?: number;
@@ -25,11 +25,11 @@ namespace StrictPropertyInitializationChecks {
     // }
 
     // This version also satisfies the the strict property initialization checks and uses '!' to supress the error
-    class Person {
-        firstName: string = "Allen";
-        lastName: string = "Conway";
-        address1!: string;  // Suppress strict initialization check
-        address2?: number;
-    }
+    // class Person {
+    //     firstName: string = "Allen";
+    //     lastName: string = "Conway";
+    //     address1!: string;  // Suppress strict initialization check
+    //     address2?: number;
+    // }
 
 }

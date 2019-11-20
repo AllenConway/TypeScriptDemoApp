@@ -17,21 +17,7 @@ var fullName: string = App.firstName + " " + App.lastName;
 
 
 
-export interface IEngine {
-
-    
-
-    //Properties
-    horsepower: number;
-    cubicInches: number;
-
-    //Methods
-    start();
-    stop();
-
-}
-
-export default interface Engine {
+export interface Engine {
 
     
 
@@ -51,7 +37,7 @@ export interface Test {
 
 }
 
-export class LawnmowerEngine implements IEngine {
+export class LawnmowerEngine implements Engine {
 
     constructor(public horsepower: number, public cubicInches: number) {
     }

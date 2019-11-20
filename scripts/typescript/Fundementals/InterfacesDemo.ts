@@ -1,11 +1,11 @@
-﻿import { IEngine, LawnmowerEngine } from './ModuleDemo';
+﻿import { Engine, LawnmowerEngine } from './ModuleDemo';
 
 interface CoolEngine {
     cylinders: number,
     horsepower: number
 }
 
-class CarEngine implements IEngine {
+class CarEngine implements Engine {
 
     constructor(public horsepower: number, public cubicInches: number, public coolEngine:CoolEngine) {
     }

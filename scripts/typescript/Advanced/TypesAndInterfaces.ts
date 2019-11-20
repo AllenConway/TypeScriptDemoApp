@@ -83,7 +83,7 @@ namespace TypesAndInterfaces {
     //Use mapped types like Partial on types
     type ContractEmployeeType = Partial<PersonType & EmployeeType>;
     //Notice with use of Partial, not required from the point of definition to supply required fields
-    //Use Partial when wanting the ability to have type checking, but not the contraints of what's defined
+    //Use Partial when wanting the ability to have type checking, but not the constraints of what's defined
     let contractEmployee: ContractEmployeeType = {
         lastName: "Jones",
         firstName: "Mary",
@@ -96,8 +96,8 @@ namespace TypesAndInterfaces {
     let temporaryEmployeeType: TemporaryEmployeeType = {
         firstName: "Henry",
         lastName: "Davis",
-        phone: "555-321-9999"
-        //department: 200
+        phone: "555-321-9999",
+        // department: 200
     }
     
     // Below will not work because the members aren't statically known:
