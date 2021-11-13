@@ -99,17 +99,6 @@ namespace Generics {
 
     }
 
-    class SomeRepository implements GenericRepository<Person, PersonType> {
-        getAll(): Person[] {
-            throw new Error("Method not implemented.");
-        } 
-        save(value: Person, otherValue: PersonType) {
-            throw new Error("Method not implemented.");
-        }
-
-    }
-
-
     //Create a person and save using the Repository
     let peoplePerson = new Person();
     peoplePerson.id = 5;
