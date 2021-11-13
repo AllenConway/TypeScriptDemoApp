@@ -1,6 +1,7 @@
 //note: becomes a IIFE when transpiled to JS targeting ES5
 class FunctionsDemo {
 
+    //Named function (added to the prototype)
     //This class method will end up being placed on the prototype of the object
     formatName(firstName: string, lastName: string, middleName?: string):string {
 
@@ -9,6 +10,7 @@ class FunctionsDemo {
         return middleName ? `${firstName} ${middleName} ${lastName}`: `${firstName} ${lastName}`; //use a ternary operator
     }
 
+    //Fat arrow function (created on the constuctor)
     formatNumber = (phone:string) => {
         return phone.replace(/(\d{3})(\d{3})(\d{4})/,"($1) $2-$3");
     }

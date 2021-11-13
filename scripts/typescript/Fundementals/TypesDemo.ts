@@ -21,7 +21,7 @@ module TypesDemo {
     user = user + 1234;
 
     // equivalent to above
-    var userId: number = 1234;
+    let userId: number = 1234;
     user = user + userId;
 
     //Additional mathematical operations will fail
@@ -32,24 +32,24 @@ module TypesDemo {
 
     //dynamic types
     //All assignments work
-    var dyno: any;
+    let dyno: any;
     dyno = 123;
     dyno = false;
     dyno = "Hello";
 
     //Boolean
-    var isValid: boolean = false;
+    let isValid: boolean = false;
     //Will not compile
     //isValid = 1234;
 
     //Array of strings
-    var colors: Array<string> = new Array<string>();
+    let colors: Array<string> = new Array<string>();
     colors.push("red");
     colors.push("blue");
     //Will not compile
     //colors.push(1234);
     //Alternate way to declare:
-    var colors2: string[] = ["red", "blue"];
+    let colors2: string[] = ["red", "blue"];
     //colors2.push(1234);
 
 
@@ -63,7 +63,7 @@ module TypesDemo {
     }
 
     //Notice Intellisense
-    var myColor: Colors = Colors.Red;
+    let myColor: Colors = Colors.Red;
     //Will not compile
     //myColor = Colors.Yellow;
 

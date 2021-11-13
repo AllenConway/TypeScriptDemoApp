@@ -30,6 +30,7 @@ let myEngine:CoolEngine = {
     cylinders:8,
     horsepower:500
 }
+
 var auto = new CarEngine(320, 289, myEngine);
 auto.start();
 var mower = new LawnmowerEngine(7.75, 11.6);

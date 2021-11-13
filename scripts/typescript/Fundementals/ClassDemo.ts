@@ -14,7 +14,7 @@ module Test {
 
     }
 
-    export class PrivateTest {
+    class PrivateTest {
         //Exposing private value on private method only accessible within the scope of this module
         myMethod() {
             return this.name1;
@@ -24,9 +24,9 @@ module Test {
     }
 }
 
-var a = new Test.MyTest();
-var ret = a.myPublicMethod();
-var b = new Test.PrivateTest(); //Not accessible - it's not exported on 'test'
+const a = new Test.MyTest();
+const ret = a.myPublicMethod();
+// const b = new Test.PrivateTest(); //Not accessible - it's not exported on 'test'
 
 
 module ClassInheritance {
@@ -34,6 +34,10 @@ module ClassInheritance {
     export class Car {        
         constructor(public make: string, public model: string) {
 
+        }
+
+        startTheCar() {
+            
         }
 
     }
@@ -59,12 +63,13 @@ module ClassInheritance {
         "V12"
     }
 
-    var myCar = new ClassInheritance.Car("Ford", "Mustang");
-    var coolEngine = new ClassInheritance.Engine(EngineType.V8, 320, 281, myCar.make, myCar.model);
+    const myCar = new ClassInheritance.Car("Ford", "Mustang");
+    const coolEngine = new ClassInheritance.Engine(EngineType.V8, 320, 281, myCar.make, myCar.model);
+    coolEngine.startTheCar();
 
     //Use the import statement to reference exported classes from internal modules and give alias
     import CarTest = ClassInheritance.Car;
-    var myCar2 = new CarTest("Dodge", "Challenger");
+    const myCar2 = new CarTest("Dodge", "Challenger");
 
 }
 

@@ -18,12 +18,12 @@ namespace DeclarationMerging {
     // The 'Car' Interface will be merged as a single Interface
     let mustang: Car = {
         color: "black",
-        horsepower: 500,
+        horsepower: 540,
         isManualTransmission: true,
         make: "Ford",
-        model: "Shelby GT500",
+        model: "Shelby GT500KR",
         weight: 3260,
-        year: 2015
+        year: 2009
     }
 
     console.log(`Here is the car data: ${JSON.stringify(mustang)}`);
