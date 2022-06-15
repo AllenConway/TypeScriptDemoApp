@@ -23,7 +23,7 @@ namespace RecordMappedType {
     const mappedTypeRecordUsingPartial: Partial<Record<Color, string>> = {
         [Color.Red]: "12345",
         // If Partial<T> is removed, this value wouldn't compile
-        [Color.Blue]: "",
+        // [Color.Blue]: "",
         [Color.Green]: ""
     }
 

@@ -54,7 +54,7 @@ namespace Generics {
     // Without using generics
     interface ConcreteOrderRepository {
         getAll(): Order[];
-        save(person: Order);
+        save(order: Order);
     }
 
     // Using Generics now we have a single version of the repository

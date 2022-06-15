@@ -38,7 +38,7 @@ namespace ExtendingInterfaces {
         id: 123,
         type: "customer",
         errorId: 0,
-        status: 200,        
+        status: 200        
     }
 
     let apiResponseWithError: ApiResponse<Customer, number> = {

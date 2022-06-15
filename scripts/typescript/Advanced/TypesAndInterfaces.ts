@@ -63,7 +63,7 @@ namespace TypesAndInterfaces {
         phone: string;
     }
 
-    //Interesting if you remove the implementation, VSC will prompt to implement 'Interface'
+    //Interesting if you remove the 'PersonType' type after implements, VSC will prompt to implement 'Interface'
     class PersonClassUsingType implements PersonType {
         firstName: string;        
         lastName: string;
@@ -97,7 +97,7 @@ namespace TypesAndInterfaces {
         firstName: "Henry",
         lastName: "Davis",
         phone: "555-321-9999",
-        // department: 200
+        department: 200
     }
     
     // Below will not work because the members aren't statically known:

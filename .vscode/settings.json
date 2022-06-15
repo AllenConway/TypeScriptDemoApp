@@ -3,5 +3,7 @@
 
         "**/*.map": {"when": "$(basename).map"}
     },
-    "debug.node.autoAttach": "on"
+    "debug.node.autoAttach": "on",
+    "gitlens.currentLine.enabled": false,
+    "gitlens.codeLens.enabled": false
 }

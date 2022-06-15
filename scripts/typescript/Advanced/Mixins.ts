@@ -20,21 +20,26 @@ namespace MixinsUsingApply {
         }
     }
 
-    // Anemic stand-in class to satisfy the compiler at runtime
-    // Note the boilerplate overhead in this method
-    export class Administrator implements Employee, User, Management {
-        // Note! when run these messages are not seen or executed
-        getHours(): string {
-            throw new Error("Method not implemented.");
-        }        
-        getLastLogin(): string {
-            throw new Error("Method not implemented.");
-        }
-        getSalary(): string {
-            throw new Error("Method not implemented.");
-        }
-    }
+    // Sample base class
+    export class Administrator {
 
+    }
+    export interface Administrator extends Management, User, Employee {}
+
+    // Another way, but more laboroius
+    // export class Administrator implements Employee, User, Management {
+    //     // Note! when run these messages are not seen or executed
+    //     getHours(): string {
+    //         throw new Error("Method not implemented.");
+    //     }        
+    //     getLastLogin(): string {
+    //         throw new Error("Method not implemented.");
+    //     }
+    //     getSalary(): string {
+    //         throw new Error("Method not implemented.");
+    //     }
+    // }
+    
     // Ideally this would be in a static class elsewhere
     function applyMixins(derivedCtor: any, baseCtors: any[]) {
         baseCtors.forEach(baseCtor => {

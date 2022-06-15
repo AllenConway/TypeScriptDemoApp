@@ -39,6 +39,7 @@ namespace Decorators {
         };
     }
     
+    // target is the class constructor
     function sealed(target: any) {
         Object.seal(target);
         Object.seal(target.prototype);

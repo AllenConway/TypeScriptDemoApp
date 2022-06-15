@@ -2,9 +2,9 @@ namespace Generators {
 
     function *numberCount(num: number): IterableIterator<number> {
         while (num <= 4) {
-            //yield keyword will pause and resume any time asynchronously
+            //yield keyword will pause and resume any time asynchronously 
             yield num;
-            num++;    
+            num++;
         }        
     }
 

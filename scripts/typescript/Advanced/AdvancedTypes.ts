@@ -20,42 +20,19 @@ namespace IntersectionTypes {
     console.log(admin.getHours());
     console.log(admin.getLastLogin());
 
-    // Use helper extend with intersection types on 2 classes below to create a new type
-    class PersonClass implements Employee {
+    interface Error  {
+        errorId?: number;
+        status?: number;
+        detail?: string;
+    }
+
+    type EmployeeResponse = Employee & Error;
+    let response: EmployeeResponse = {
         getHours(): string {
-            return 'retreiving hours';
+            this.errorId = 0;
+            return 'retreived hours';
         }
     }
-
-    class UserClass implements User {
-        getLastLogin(): string {
-            return `Last Login: ${Date.now()}`;
-        }
-    }
-
-    // Utility method that uses '&' intersection type combining multiple types into one
-    function extend<First, Second>(first: First, second: Second): First & Second {
-        // Note: the returned object is a brand new instance not the original prototype
-        // None of the changes are reflected on the original class prototype
-        // Just a returned single use instance for specific needs within a given scope
-        const result: Partial<First & Second> = {};
-        for (const prop in first) {
-            if (first.hasOwnProperty(prop)) {
-                (<First>result)[prop] = first[prop];
-            }
-        }
-        for (const prop in second) {
-            if (second.hasOwnProperty(prop)) {
-                (<Second>result)[prop] = second[prop];
-            }
-        }
-        return <First & Second>result;
-    }
-
-    const adminUser = extend(PersonClass.prototype, UserClass.prototype);    
-    console.log(adminUser.getHours());
-    console.log(adminUser.getLastLogin());
-
 }
 
 namespace UnionTypes {
@@ -68,8 +45,9 @@ namespace UnionTypes {
     console.log(allowUnionTypeParameter("Hello"));
     console.log(allowUnionTypeParameter(null));
     // Lines below are not allowed    
-    //  console.log(allowUnionTypeParameter(true));
-    //  console.log(allowUnionTypeParameter(undefined));
+    // console.log(allowUnionTypeParameter(true));
+    // Not allowed if strictNullChecks = true
+    // console.log(allowUnionTypeParameter(undefined));
 
     export interface Engine {
         manufacturer: string;
@@ -180,7 +158,7 @@ namespace NullableTypes {
     lastName = null;
 
     // Test removing undefined while strictNullChecks is set to true
-    let phoneNumber: string | number | null | undefined ;
+    let phoneNumber: string | number | null | undefined  ;
     phoneNumber = "4071234567";
     phoneNumber = 4071234567;
     phoneNumber = null;

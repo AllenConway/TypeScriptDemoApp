@@ -1,12 +1,12 @@
 namespace StrictPropertyInitializationChecks { 
 
     // // Each field will show an error
-    class Person {
-        firstName: string;
-        lastName: string;
-        address1: string;
-        address2: number;
-    }
+    // class Person {
+    //     firstName: string;
+    //     lastName: string;
+    //     address1: string;
+    //     address2: number;
+    // }
 
     // // Using the optional field which includes undefined will be acceptable
     // class Person {

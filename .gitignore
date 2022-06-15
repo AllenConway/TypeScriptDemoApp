@@ -1,10 +1,16 @@
-# IDE - VSCode
+# Visual Studio Code
+/.vscode
 .vscode/*
 !.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
 .history/*
+
+# Node
+/node_modules
+npm-debug.log
+yarn-error.log
 
 # System Files
 .DS_Store

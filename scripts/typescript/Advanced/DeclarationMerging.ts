@@ -53,7 +53,7 @@ namespace DeclarationMerging {
         // start(engineType: Automobile);        
         // start(engineType: LawnMower);
         // start(engineType: Motorcycle);
-        // start(engineType: Moped);
+        // start(engineType: Moped) {};
 
         // Even though we merged the interface declaration and have overloaded signatures, there will only be one implementation selected
         // This is because the transpiled JS doesn't have types to differentiate, so the overloads are shown only at time of development
