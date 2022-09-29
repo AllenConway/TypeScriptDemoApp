@@ -11,6 +11,11 @@ namespace Generics {
         public description: string;
     }
 
+    enum PersonType {
+        Happy,
+        Excited
+    }
+
     //Without Generics
     interface PersonService {
         save(person: Person, personType: PersonType);
@@ -64,10 +69,7 @@ namespace Generics {
         save(value: T, otherValue: K);
     }
 
-    enum PersonType {
-        Happy,
-        Excited
-    }
+
     class PersonRepository implements GenericRepository<Person, PersonType> {
 
         constructor(private personApiService: PersonApiService) { }
@@ -113,7 +115,7 @@ namespace Generics {
     let order = new Order();
     //Will not work as the type declare isn't correct.
     //'repo' is of type PersonRepository which implements GenericRepository<Person>, not order
-    //repo.save(order);
+    //repo.save(order, null);
 
     // Example using a class with a generic parameter
     class hyphenateArray<T> {

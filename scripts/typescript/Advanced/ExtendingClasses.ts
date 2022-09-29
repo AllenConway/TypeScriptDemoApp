@@ -1,11 +1,11 @@
 module ExtendingClasses { 
 
     class Employee {
-        private salary: number = 200;
+        #salary: number = 200;  // Using newer ECMAScript private notation; either will work
         protected bonus: number;
         doSomething() {
             console.log('You did something!');
-            console.log(this.salary);
+            console.log(this.#salary);
         }
     }
 
@@ -18,7 +18,7 @@ module ExtendingClasses {
     class Executives extends Employee implements Management {
         init() { 
             // private members are not accessable except from within the class defining it
-            // let income = this.salary;
+            // let income = this.#salary;
             // protected members are accessible from inside the class and extending classes; works
             this.bonus = 10000;
             this.doSomething();            

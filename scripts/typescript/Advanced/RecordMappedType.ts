@@ -17,7 +17,8 @@ namespace RecordMappedType {
     const mappedTypeRecord: Record<Color, string> = {
         [Color.Red]: "12345",
         [Color.Blue]: "",
-        [Color.Green]: ""
+        [Color.Green]: "",
+        //[Color.Yellow]: ""
     }
 
     const mappedTypeRecordUsingPartial: Partial<Record<Color, string>> = {

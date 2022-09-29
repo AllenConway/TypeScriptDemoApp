@@ -12,7 +12,6 @@ namespace Decorators {
     
     }
     
-    
     //Method decorator
     //The expression for the method decorator will be called as a function at runtime, with the following three arguments:
     
@@ -24,15 +23,15 @@ namespace Decorators {
     }
     
     //Class Decorator using a decorator factory
-    function message(message:string) {
+    function message(message:string): ClassDecorator {
         return function (target: any) {
             console.log(`You said ${message}`);
         };
     }
     
     //Method decorator using a decorator factory
-    function adminOnly(id: number) { //factory 
-        return function(target: any, propertKey: string, descriptor: PropertyDescriptor) { //decorator
+    function adminOnly(id: number): MethodDecorator { //factory 
+        return function<T>(target: Object, propertyKey: string | symbol, descriptor: TypedPropertyDescriptor<T>): void { //decorator
             if (id > 100) {
                 console.log(`only admins may access this method`);
             }
@@ -41,6 +40,8 @@ namespace Decorators {
     
     // target is the class constructor
     function sealed(target: any) {
+        // This will seal the constructor and the prototype from 
+        // further functionality being add/removed at runtime
         Object.seal(target);
         Object.seal(target.prototype);
     }

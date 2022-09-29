@@ -107,11 +107,12 @@ namespace MixinsUsingComposer {
         }
     }
 
-    export class Administrator {        
+    export class Administrator {   
+        constructor(public empId: number) {}     
     }
 
     export const Admin = Employee(User(Management(Administrator)));
-    const admin = new Admin();
+    const admin = new Admin(123);
     console.log(admin.getHours());
     console.log(admin.getSalary());
     console.log(admin.getLastLogin());
