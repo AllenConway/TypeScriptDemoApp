@@ -39,9 +39,13 @@
     var userId = "Allen";
     user = userId * 1;
     console.log('user value: ' + user);  //NaN
- 
+
+    //Overloading methods test
+    OverloadedMethod('Hello');
+
+    //Calling to use a value outside the current scope at build time shows no issues until running in the browser:
     OutsideScope();
- 
+
  }());  //IIFE, run this Immediately
  
  
@@ -50,4 +54,15 @@
  
     //No warning or error on build that 'user' is not in scope here
     console.log("Outside Scope user value: " + user);  //'user is not defined' in debug window
+ }
+
+ // Example of 'overloading' with similar signatures, but because there aren't types in JS the last defined method is executed
+ function OverloadedMethod(value){
+   // this 'overloaded' implementation will not be called
+   console.log(`${value} from method signature 1`);
+ }
+
+ function OverloadedMethod(anotherValue){
+   // this is the implementation that will be called at runtime
+   console.log(`${anotherValue} from method signature 2`);
  }

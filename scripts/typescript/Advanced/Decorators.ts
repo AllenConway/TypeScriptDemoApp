@@ -16,8 +16,9 @@ namespace Decorators {
     //The expression for the method decorator will be called as a function at runtime, with the following three arguments:
     
     //    Either the constructor function of the class for a static member, or the prototype of the class for an instance member.
-    //    The name of the member.
+    //    The name of the method.
     //    The Property Descriptor for the member.
+    // This is a plain decorator function using the signature for a method decorator
     function log(target: any, propertKey: string, descriptor: PropertyDescriptor) {
         console.log(`${propertKey} was called`);
     }
