@@ -3,27 +3,29 @@ namespace Decorators {
     @message("Hello from the employee class")
     @sealed
     export class Employee {
-        
+        public firstName: string;
+        public lastName: string;
+
         @adminOnly(123)
         @log //careful not to add ()
         getSalary() {
             
         }
-    
     }
     
-    //Method decorator
-    //The expression for the method decorator will be called as a function at runtime, with the following three arguments:
-    
-    //    Either the constructor function of the class for a static member, or the prototype of the class for an instance member.
-    //    The name of the method.
-    //    The Property Descriptor for the member.
+    // Method decorator
+    // The expression for the method decorator will be called as a function at runtime, 
+    // with the following three arguments:
+    // target: containing class 
+    // propertKey: the name of the method
+    // descriptor: information that defines a property behavior used to observe, modify, or replace a method definition
     // This is a plain decorator function using the signature for a method decorator
     function log(target: any, propertKey: string, descriptor: PropertyDescriptor) {
         console.log(`${propertKey} was called`);
     }
     
-    //Class Decorator using a decorator factory
+    // Class Decorator using a decorator factory
+    // target: class constructor which can be modified to create an augmented definition
     function message(message:string): ClassDecorator {
         return function (target: any) {
             console.log(`You said ${message}`);
@@ -47,6 +49,4 @@ namespace Decorators {
         Object.seal(target.prototype);
     }
     
-    
-
 }

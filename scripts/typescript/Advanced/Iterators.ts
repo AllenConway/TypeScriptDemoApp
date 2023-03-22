@@ -1,6 +1,11 @@
 namespace Iterators {
 
-    let people = [{
+    interface Person {
+        id: number;
+        name: string;
+    }
+
+    let people: Person[] = [{
         id: 1,
         name: 'John'
     }, {
