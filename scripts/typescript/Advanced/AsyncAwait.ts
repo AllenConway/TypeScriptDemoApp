@@ -1,14 +1,12 @@
-import { resolve } from "url";
-
 namespace AsyncAwait {
 
-    export interface Car {
+    interface Car {
         year: number;
         make: string;
         model: string;
     }
 
-    export interface Driver {
+    interface Driver {
         firstName: string,
         lastName: string
     }

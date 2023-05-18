@@ -1,7 +1,6 @@
 
 namespace TypesAndInterfaces {
     
-
     interface PersonInterface {
         firstName: string;
         lastName: string;

@@ -6,18 +6,11 @@ module GenericsDemo {
         save(entity: T);
     }
 
-
     interface ApiResponse<T> {
         errors: any;
         data: T;
         id;
     }
-
-    interface Test2 extends ApiResponse<Test2>  {
-
-
-    }
-   
 
     class Person {
         public id: number;
