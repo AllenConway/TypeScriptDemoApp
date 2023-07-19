@@ -47,15 +47,27 @@ namespace Iterators {
         console.log('Will not execute this line, there are no keys to iterate in a set');
     }
 
-    class CustomIterator {
+    class CustomIterator implements Iterable<number> {
         #count: number = 0;
 
-        *[Symbol.iterator](): IterableIterator<number> {
-            //let counter = 0;
-            while (this.#count < 5) {
-                yield this.#count++;
+        // custom iterator using a defined iterator function implmenting the required next() function
+        [Symbol.iterator]() {
+            return {
+                next: () => {
+                    return {
+                        done: this.#count >= 10,
+                        value: this.#count++
+                    }
+                }
             }
         }
+
+        // custom iterator using a generator function
+        // *[Symbol.iterator](): IterableIterator<number> {
+        //     while (this.#count < 10) {
+        //         return this.#count++;
+        //     }
+        // }
     }
 
     const customIterator: CustomIterator = new CustomIterator();

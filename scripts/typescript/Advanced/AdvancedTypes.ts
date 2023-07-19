@@ -158,7 +158,9 @@ namespace NullableTypes {
     lastName = null;
 
     // Test removing undefined while strictNullChecks is set to true
-    let phoneNumber: string | number | null | undefined  ;
+    // setting phoneNumber to null/undefined is acceptable even if not provided as a union type, unless strictNullChecks: "true"
+    // at that point you must explicitly have it defined as a nullable type
+    let phoneNumber: string | number | null | undefined;
     phoneNumber = "4071234567";
     phoneNumber = 4071234567;
     phoneNumber = null;

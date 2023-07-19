@@ -122,28 +122,36 @@ namespace MixinsUsingComposer {
 namespace PlainOldJavaScriptMixin {
 
     class Employee {
+        id; string;
+        constructor() {
+            this.id = 99;
+        }
+        
         getHours() {
             return 'retreiving hours';
         }
     }
 
     class User {
+        constructor() {}
+        name: string = 'Allen';
         getLastLogin() {
             return `Last Login: ${Date.now()}`;
         }
     }
 
     class Management {
+        constructor() {}
+        department: number = 100;
         getSalary() {
             return 'retreiving slary';
         }
     }
 
-       
+    // using object.assign for a shallow copy
     Object.assign(Management.prototype, User.prototype, Employee.prototype);
-    let management = new Management(); 
-
-    // Uncomment to run only or TypeScript will not build
+    let management = new Management();
+    console.log(management.getSalary());
     // console.log(management.getLastLogin());
     // console.log(management.getHours());
     // console.log(management.getSalary());

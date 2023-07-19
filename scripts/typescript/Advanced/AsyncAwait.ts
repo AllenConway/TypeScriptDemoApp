@@ -38,8 +38,6 @@ namespace AsyncAwait {
 
     }
 
-
-
     function getDrivers(): Promise<Driver[]> {
         let drivers: Driver[] = [
             { firstName: "Allen", lastName: "Conway" },

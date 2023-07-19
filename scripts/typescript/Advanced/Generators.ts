@@ -1,8 +1,8 @@
 namespace Generators { 
     /**
-     * - yields numbers
-     * - returns any (or void)
-     * - can be passed in numbers
+     * - yields numbers (type checked)
+     * - function returns void (or any could be used)
+     * - can be passed in numbers (via .next(); type checked)
      */
     function *numberCount(num: number): Generator<number, void, number> {
         while (num <= 4) {
