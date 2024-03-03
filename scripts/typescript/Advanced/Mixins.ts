@@ -133,7 +133,6 @@ namespace PlainOldJavaScriptMixin {
     }
 
     class User {
-        constructor() {}
         name: string = 'Allen';
         getLastLogin() {
             return `Last Login: ${Date.now()}`;
@@ -141,18 +140,45 @@ namespace PlainOldJavaScriptMixin {
     }
 
     class Management {
-        constructor() {}
         department: number = 100;
         getSalary() {
             return 'retreiving slary';
         }
     }
-
-    // using object.assign for a shallow copy
+    // There is an issues with Object.assign here if trying to use for JavaScript mixins:
+    // 1. Using object.assign for the 'JavaScript way' to create a mixin is ideal for mixing 1 single class
+    // and object literals together. It does not work correctly though for multiple classes with methods on each class.
+    // The reason is Object.assign only does a shallow copy, so methods on the source prototypes (1..n other source classes) 
+    // are not copied (methods on a class are not enumerable) and Object.assign() only copies properties that are enumerable 
+    // and not inherited resulting in an error that getLastLogin and getHours are not defined.
     Object.assign(Management.prototype, User.prototype, Employee.prototype);
-    let management = new Management();
+
+    /**
+     * Helper function for applying mixins to a 1..n JavaScript classes.
+     * 
+     * @param target - The target class to apply the mixins to.
+     * @param sources - The mixin classes to apply.
+     * @returns The target class with the mixins applied.
+     */
+    function jsClassMixinHelper(target, ...sources) {
+        sources.forEach(source => {
+            const {name,length,prototype,...statics} = Object.getOwnPropertyDescriptors(source);
+            Object.defineProperties(target, statics);
+            const {constructor,...proto} = Object.getOwnPropertyDescriptors(source.prototype);
+            Object.defineProperties(target.prototype, proto);
+        });
+    
+        return target;
+    }
+
+    jsClassMixinHelper(Management, User, Employee);
+
+    // Note: The TS compiler is not able to see the getLastLogin or getHours methods on the Management mixin because the methods 
+    // are added at runtime using jsClassMixinHelper() (or Object.assign), but TypeScript's static type checking happens at compile time. 
+    // Therefore an error will be thrown at compile time but will work at runtime, so those 2 lines must remain commented.
+    // You can run quokka.js against the transpiled JavaScript to see the valid output.
+    const management = new Management();
     console.log(management.getSalary());
     // console.log(management.getLastLogin());
     // console.log(management.getHours());
-    // console.log(management.getSalary());
 }

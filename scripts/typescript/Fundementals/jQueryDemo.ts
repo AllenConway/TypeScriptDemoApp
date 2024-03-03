@@ -3,7 +3,7 @@
 //import * as $ from "jquery";
 //import $ from "../../node_modules/jquery/dist/jquery.min.js";
 //import * as JQuery from "../../node_modules/jquery/dist/jquery.min.js";
-import { Employee } from "./DecoratorsDemo.js";
+// import { Employee } from "./DecoratorsDemo.js";
 import { ContactInfo } from './ContactInfo';
 
 
@@ -28,8 +28,8 @@ window.onload = () => {
     const colorChange = new ColorChange();
     colorChange.setElementColor("mainTitle", "red");
 
-    const employee = new Employee();
-    employee.getSalary();    
+    // const employee = new Employee();
+    // employee.getSalary();    
 
     const contactInfo = new ContactInfo();
     contactInfo.getContactInfo();
