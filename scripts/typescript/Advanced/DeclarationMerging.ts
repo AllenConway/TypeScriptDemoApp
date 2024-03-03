@@ -63,9 +63,6 @@ namespace DeclarationMerging {
             // push on the clutch
             // turn the ignition...
         }      
-        
-        // Note: in transpiled JS, /** @class */ is emitted so minifiers can remove unused classes
-
     }
 
     //*** Example of merging an Interface and a class***

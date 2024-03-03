@@ -47,7 +47,7 @@ namespace Iterators {
         console.log('Will not execute this line, there are no keys to iterate in a set');
     }
 
-    class CustomIterator implements Iterable<number> {
+    class CustomIterator {
         #count: number = 0;
 
         // custom iterator using a defined iterator function implmenting the required next() function
@@ -62,10 +62,13 @@ namespace Iterators {
             }
         }
 
-        // custom iterator using a generator function
+        // custom iterator using a generator function denoted by the * before the function name. 
+        // This function does not explicitly return an iterator object with a next method. Instead, 
+        // it implicitly creates one because it's a generator function
         // *[Symbol.iterator](): IterableIterator<number> {
         //     while (this.#count < 10) {
-        //         return this.#count++;
+        //         console.log(this.#count);
+        //         yield this.#count++;
         //     }
         // }
     }
