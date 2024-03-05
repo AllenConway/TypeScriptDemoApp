@@ -22,9 +22,22 @@ namespace AsyncAwait {
         return new Promise<Car[]>(resolve => {
             setTimeout(() => {
                 resolve(cars);
-            }, 1500);
+            }, 4000);
         });
     }    
+
+    function getDrivers(): Promise<Driver[]> {
+        let drivers: Driver[] = [
+            { firstName: "Allen", lastName: "Conway" },
+            { firstName: "Jenn", lastName: "Smith" },
+            { firstName: "John", lastName: "Davis" }
+        ];
+        return new Promise<Driver[]>(resolve => {
+            setTimeout(() => {
+                resolve(drivers);
+            }, 4000);
+        });
+    }   
 
     async function listCars(): Promise<void> {
 
@@ -38,19 +51,6 @@ namespace AsyncAwait {
 
     }
 
-    function getDrivers(): Promise<Driver[]> {
-        let drivers: Driver[] = [
-            { firstName: "Allen", lastName: "Conway" },
-            { firstName: "Jenn", lastName: "Smith" },
-            { firstName: "John", lastName: "Davis" }
-        ];
-        return new Promise<Driver[]>(resolve => {
-            setTimeout(() => {
-                resolve(drivers);
-            }, 1500);
-        });
-    }    
-
     async function listDrivers(): Promise<void> {
 
         console.log('Getting drivers...');
@@ -62,8 +62,6 @@ namespace AsyncAwait {
         console.log(`Retrieved drivers: ${JSON.stringify(allDrivers)}`);
 
     }
-
-
 
     async function getCarsandDrivers(): Promise<string> {
 
