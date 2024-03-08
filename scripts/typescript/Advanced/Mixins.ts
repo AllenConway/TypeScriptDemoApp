@@ -4,7 +4,7 @@ namespace MixinsUsingApply {
 
     class Employee {
         getHours(): string {
-            return 'retreiving hours';
+            return 'retrieving hours';
         }
     }
 
@@ -16,7 +16,7 @@ namespace MixinsUsingApply {
 
     class Management {
         getSalary(): string {
-            return 'retreiving slary';
+            return 'retrieving slary';
         }
     }
 
@@ -86,7 +86,7 @@ namespace MixinsUsingComposer {
     function Employee<TBase extends mixinComposer>(Base: TBase) {
         return class extends Base {
             getHours(): string {
-                return 'retreiving hours';
+                return 'retrieving hours';
             }
         }
     }
@@ -102,7 +102,7 @@ namespace MixinsUsingComposer {
     function Management<TBase extends mixinComposer>(Base: TBase) {
         return class extends Base {
             getSalary(): string {
-                return 'retreiving slary';
+                return 'retrieving salary';
             }
         }
     }
@@ -128,7 +128,7 @@ namespace PlainOldJavaScriptMixin {
         }
         
         getHours() {
-            return 'retreiving hours';
+            return 'retrieving hours';
         }
     }
 
@@ -142,7 +142,7 @@ namespace PlainOldJavaScriptMixin {
     class Management {
         department: number = 100;
         getSalary() {
-            return 'retreiving slary';
+            return 'retrieving salary';
         }
     }
     // There is an issues with Object.assign here if trying to use for JavaScript mixins:
