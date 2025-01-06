@@ -1,8 +1,5 @@
 ﻿//// <reference path="../../node_modules/@types/jquery/index.d.ts" />
-//import "jquery";  
-//import * as $ from "jquery";
-//import $ from "../../node_modules/jquery/dist/jquery.min.js";
-//import * as JQuery from "../../node_modules/jquery/dist/jquery.min.js";
+import $ from "jquery";
 // import { Employee } from "./DecoratorsDemo.js";
 import { ContactInfo } from './ContactInfo';
 
