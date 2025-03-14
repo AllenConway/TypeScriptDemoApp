@@ -41,6 +41,8 @@ namespace MixinsUsingApply {
     // }
     
     // Ideally this would be in a static class elsewhere
+    // derivedCtor parameter represents the constructor of the class that will receive the mixins
+    // baseCtors is an array of constructors representing the mixin classes
     function applyMixins(derivedCtor: any, baseCtors: any[]) {
         baseCtors.forEach(baseCtor => {
             Object.getOwnPropertyNames(baseCtor.prototype).forEach(name => {

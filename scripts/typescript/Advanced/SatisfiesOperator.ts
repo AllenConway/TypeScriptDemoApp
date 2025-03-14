@@ -23,13 +23,9 @@ namespace SatisfiesOperator {
     city: "Asheville",
     state: "NC",
     zip: "28802",
-  } satisfies Customer; // ✅ TypeScript ensures `customer` conforms to `Customer` while preserving its inferred type
+  } satisfies Customer; // TypeScript ensures `customer` conforms to `Customer` while preserving its inferred type
 
-  // TypeScript ensures that `customer` conforms to the `customer` interface, but it does not remove the `extraProperty`.
-  // This means you can still access `extraProperty` on `user`:
-  console.log(customer.firstName);
-
-  // If `user` did not conform to the `User` interface, TypeScript would raise a type error.
+  // If `customer` did not conform to the `Customer` interface, TypeScript would raise a type error.
 
   // Example with let and var
   let customerExtraProp1 = {
@@ -40,7 +36,7 @@ namespace SatisfiesOperator {
     state: "NC",
     zip: "28802",
     //phone: "828-456-7890"  // <--uncomment to see error
-  } satisfies Customer; // ❌ This will cause a type error because object literals are strictly checked
+  } satisfies Customer; // This will cause a type error because object literals are strictly checked
 
   var customerExtraProp2 = {
     firstName: "Allen",
@@ -49,8 +45,13 @@ namespace SatisfiesOperator {
     city: "Asheville",
     state: "NC",
     zip: "28802",
-    //email: "allen@allenconway.net" // <--uncomment to see error
-  } satisfies Customer; // ❌ This will cause a type error because object literals are strictly checked
+    // email: "allen@allenconway.net" // <--uncomment to see error
+  } satisfies Customer; // This will cause a type error because object literals are strictly checked
+
+  // TypeScript does not enforce extra property checks on variables that hold object values
+  // satisfies Customer ensures that rawUser meets the minimum required structure
+  const customerExtraProp = customerExtraProp2 satisfies Customer; // No error
+  // console.log(customerExtraProp.email);
 
   interface UserProfile {
     name: string;
@@ -72,10 +73,10 @@ namespace SatisfiesOperator {
 
   const user = getUserFromApi() satisfies UserProfile;
 
-  // ✅ `user` has `name` and `email` (valid)
+  // `user` has `name` and `email` (valid)
   console.log(user.name);
   console.log(user.email);
-  // ❌ Exists at runtime, but TypeScript won't auto-suggest or allow direct access
+  // Exists at runtime, but TypeScript won't auto-suggest or allow direct access
   // console.log(user.role); // <--uncomment to see error
 
   // Contrast `satisfies` with `as`:
