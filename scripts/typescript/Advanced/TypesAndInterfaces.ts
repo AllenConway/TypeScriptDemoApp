@@ -62,7 +62,7 @@ namespace TypesAndInterfaces {
         phone: string;
     }
 
-    //Interesting if you remove the 'PersonType' type after implements, VSC will prompt to implement 'Interface'
+    //Interesting if you remove the a required property, VSC will prompt to implement 'Interface'
     class PersonClassUsingType implements PersonType {
         firstName: string;        
         lastName: string;
