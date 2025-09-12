@@ -80,10 +80,10 @@ namespace MixinsUsingComposer {
     // represents constructor of T taking any (rest) parameters
     type mixinComposer<T = {}> = new (...args: any[]) => T;
 
-    // Each mixin function must do the following:
-    // take a constructor,
-    // create a class that extends that constructor with new functionality
-    // return the new class that is a mixin of both classes
+    // Each mixin function should:
+    // 1. Accept a base class constructor as an argument.
+    // 2. Return a new class that extends the base class and adds new functionality.
+    // This allows you to compose multiple mixins by wrapping them around your base class.
 
     function Employee<TBase extends mixinComposer>(Base: TBase) {
         return class extends Base {
