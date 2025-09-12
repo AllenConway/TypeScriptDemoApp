@@ -22,13 +22,12 @@ namespace SatisfiesOperator {
     address1: "123 Main St.",
     city: "Asheville",
     state: "NC",
-    zip: "28802",
+    zip: "28802"
   } satisfies Customer; // TypeScript ensures `customer` conforms to `Customer` while preserving its inferred type
 
   // If `customer` did not conform to the `Customer` interface, TypeScript would raise a type error.
 
-  // Example with let and var
-  let customerExtraProp1 = {
+  const customerExtraProp1 = {
     firstName: "Allen",
     lastName: "Conway",
     address1: "123 Main St.",
@@ -38,20 +37,20 @@ namespace SatisfiesOperator {
     //phone: "828-456-7890"  // <--uncomment to see error
   } satisfies Customer; // This will cause a type error because object literals are strictly checked
 
-  var customerExtraProp2 = {
+  const customerExtraProp2 = {
     firstName: "Allen",
     lastName: "Conway",
     address1: "123 Main St.",
     city: "Asheville",
     state: "NC",
     zip: "28802",
-    // email: "allen@allenconway.net" // <--uncomment to see error
-  } satisfies Customer; // This will cause a type error because object literals are strictly checked
+    email: "allen@allenconway.net" // <--extra property
+  }
 
   // TypeScript does not enforce extra property checks on variables that hold object values
   // satisfies Customer ensures that rawUser meets the minimum required structure
   const customerExtraProp = customerExtraProp2 satisfies Customer; // No error
-  // console.log(customerExtraProp.email);
+  console.log(customerExtraProp.email);
 
   interface UserProfile {
     name: string;
@@ -87,5 +86,30 @@ namespace SatisfiesOperator {
   console.log(fullApiResponse.name); // Works
   console.log(fullApiResponse.email); // Works
   console.log((fullApiResponse as any).role); // Works, but not type-safe
+
+
+  // Another example not using hardcoded data to simulate build-time checking
+  interface Product {
+    id: number;
+    name: string;
+    price: number;
+  }
+
+  // Simulate an API client that could return any shape
+  // The issue here ultimately is that the API response is `unknown`
+  async function fetchProductFromApi(productId: number): Promise<unknown> {
+    // Implementation omitted; could return any shape at runtime
+    return await fetch(`/api/products/${productId}`).then(res => res.json());
+  }
+
+  // Usage: TypeScript checks structure at build time
+  async function processProduct(productId: number) {
+    const apiResponse = await fetchProductFromApi(productId);
+
+    // TypeScript will error at build time because it's not satisfying the minimum required structure
+    // To fix, update the API client to return `Promise<Product>` instead of `Promise<unknown>`
+    // const product = apiResponse satisfies Product; // Error: Property 'id,name,price' is missing in type 'unknown' but required in type 'Product'
+
+  }
 
 }

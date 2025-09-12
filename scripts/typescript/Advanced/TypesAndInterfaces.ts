@@ -142,6 +142,16 @@ namespace TypesAndInterfaces {
         managerId: 456,
         daysPTO :25
     }
+
+    // Note: a type cannot be re-opened to add new properties 
+    // vs an interface which is always extendable
+    
+    // Declaration merging: Example now has a & b
+    interface Example { a: number; }
+    interface Example { b: string; }
+
+    type Alias = { a: number; }
+    // type Alias = { b: string; } // Error: Duplicate identifier
     
 
     // Take note of the JavaScript transpiled from this file that is void of all the interface and type definitions
