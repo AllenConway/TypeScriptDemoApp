@@ -131,11 +131,11 @@ namespace TypeGuards {
 
     // Instead we can use a custom defined Type Guard functions
     function isCar(autoMeta: UnionTypes.Engine | UnionTypes.Car): autoMeta is UnionTypes.Car {
-        return (<UnionTypes.Car>myAuto).showCarMeta !== undefined;
+        return "showCarMeta" in autoMeta;
     }
 
     function isEngine(autoMeta: UnionTypes.Engine | UnionTypes.Car): autoMeta is UnionTypes.Engine {
-        return (<UnionTypes.Engine>myAuto).showEngineMeta !== undefined;
+        return "showEngineMeta" in autoMeta;
     }
 
     if(isCar(myAuto)) {

@@ -1,4 +1,4 @@
-module ExtendingClasses { 
+namespace ExtendingClasses { 
 
     class Employee {
         #salary: number = 200;  // Using newer ECMAScript private notation; either will work

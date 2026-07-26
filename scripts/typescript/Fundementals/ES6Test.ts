@@ -1,4 +1,4 @@
-﻿module ES6 {    
+﻿namespace ES6 {    
 
     export class EcmaScriptTests {
 

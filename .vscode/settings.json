@@ -5,5 +5,6 @@
     },
     "debug.node.autoAttach": "on",
     "gitlens.currentLine.enabled": false,
-    "gitlens.codeLens.enabled": false
+    "gitlens.codeLens.enabled": false,
+    "js/ts.experimental.useTsgo": true
 }

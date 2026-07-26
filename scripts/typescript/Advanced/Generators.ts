@@ -6,7 +6,7 @@ namespace Generators {
      */
     function *numberCount(num: number): Generator<number, void, number> {
         while (num <= 4) {
-            //yield keyword will pause and resume any time asynchronously 
+            // yield suspends execution of the generator until next() is called again 
             yield num;
             num++;
         }        

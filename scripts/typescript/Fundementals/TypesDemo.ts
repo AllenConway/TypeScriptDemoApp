@@ -1,5 +1,5 @@
 
-module TypesDemo {
+namespace TypesDemo {
 
     //Alerts aren't needed because we have compile time checking :D
 

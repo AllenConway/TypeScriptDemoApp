@@ -10,7 +10,7 @@
     "@types/jquery": "^3.5.32",
     "@types/node": "^22.10.5",
     "lite-server": "^2.6.1",
-    "typescript": "^5.7.2"
+    "typescript": "^7.0.2"
   },
   "scripts": {
     "lite": "lite-server",
