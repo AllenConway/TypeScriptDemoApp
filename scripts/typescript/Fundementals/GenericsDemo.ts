@@ -1,5 +1,5 @@
 ﻿import { Engine } from './ModuleDemo';
-module GenericsDemo {
+namespace GenericsDemo {
 
     interface GenericRepository<T> {
         getAll(): T[];

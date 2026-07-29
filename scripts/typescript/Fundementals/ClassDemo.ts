@@ -1,6 +1,6 @@
-﻿//Modules act as naming containers that encapsulate other things like 
+﻿//namespace act as naming containers that encapsulate other things like 
 //'classes, 'interfaces', etc.
-module Test {
+namespace Test {
     export class MyTest {
         name: string = "hello world";
         private ab = new PrivateTest(); 
@@ -29,7 +29,7 @@ const ret = a.myPublicMethod();
 // const b = new Test.PrivateTest(); //Not accessible - it's not exported on 'test'
 
 
-module ClassInheritance {
+namespace ClassInheritance {
 
     export class Car {        
         constructor(public make: string, public model: string) {

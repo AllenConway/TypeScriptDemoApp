@@ -84,7 +84,7 @@ function message<Input extends new (...args: any) => any>(msg: string) {
                 // The new class has a constructor that takes any number of arguments.
                 constructor(...args) {
                     // Call the constructor of the original class with the provided arguments.
-                    super(args);
+                    super(...args);
                     // Log the message when an instance of the class is created.
                     console.log(`You said ${msg}`);
                 }

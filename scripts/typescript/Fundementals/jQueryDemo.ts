@@ -4,7 +4,7 @@ import $ from "jquery";
 import { ContactInfo } from './ContactInfo';
 
 
-//module JQueryTest {
+//namespace JQueryTest {
 "use strict";
 //const $ = JQuery.default;
 
