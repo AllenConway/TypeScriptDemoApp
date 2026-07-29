@@ -6,13 +6,15 @@ namespace Generators {
      */
     function *numberCount(num: number): Generator<number, void, number> {
         while (num <= 4) {
-            // yield suspends execution of the generator until next() is called again 
+            // Pause here and produce num.
+            // Resume when next() is called again.
             yield num;
             num++;
         }        
     }
 
-    // generator fucntion returns a Generator object which has a next method
+    // Calling the generator function returns
+    // a Generator object, but runs no code yet.
     let numGenerator = numberCount(0);    
     // Each call to the next() method performs another pass through the iterative algorithm
     // Each step's value is the value specified by the yield keyword

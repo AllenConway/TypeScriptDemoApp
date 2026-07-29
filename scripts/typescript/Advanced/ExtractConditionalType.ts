@@ -53,7 +53,7 @@ namespace ExtractConditionalTypes {
     
     //No need for Include helper type above to be created, can use Pick directly for the same result    
     type EngineInfo = Pick<Engine, "cylinders" | "blockType" | "horsepower">;
-    let myEngineInfo: EngineMeta = {
+    let myEngineInfo: EngineInfo = {
         cylinders: 6,
         blockType: "Iron",
         horsepower: 350

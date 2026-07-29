@@ -1,90 +1,97 @@
-namespace MixinsUsingApply {
+// Legacy way of using mixins in TypeScript, using the applyMixins() 
+// function to copy properties and methods from multiple base classes to a derived class. 
+// This approach is more verbose and less flexible than the mixin composer approach, but it can be useful in certain scenarios.
+// The applyMixins function is typed entirely as 'any'. It works, but it sacrifices all type safety, 
+// the very thing mixins are supposed to preserve
 
-    // using placeholders on an anemic class method
+// namespace MixinsUsingApply {
 
-    class Employee {
-        getHours(): string {
-            return 'retrieving hours';
-        }
-    }
+//    // using placeholders on an anemic class method
 
-    class User {
-        getLastLogin(): string {
-            return `Last Login: ${Date.now()}`;
-        }
-    }
+//     class Employee {
+//         getHours(): string {
+//             return 'retrieving hours';
+//         }
+//     }
 
-    class Management {
-        getSalary(): string {
-            return 'retrieving slary';
-        }
-    }
+//     class User {
+//         getLastLogin(): string {
+//             return `Last Login: ${Date.now()}`;
+//         }
+//     }
 
-    // Sample base class
-    export class Administrator {
+//     class Management {
+//         getSalary(): string {
+//             return 'retrieving slary';
+//         }
+//     }
 
-    }
-    export interface Administrator extends Management, User, Employee {}
+//     // Sample base class
+//     export class Administrator {
 
-    // Another way, but more laboroius
-    // export class Administrator implements Employee, User, Management {
-    //     // Note! when run these messages are not seen or executed
-    //     getHours(): string {
-    //         throw new Error("Method not implemented.");
-    //     }        
-    //     getLastLogin(): string {
-    //         throw new Error("Method not implemented.");
-    //     }
-    //     getSalary(): string {
-    //         throw new Error("Method not implemented.");
-    //     }
-    // }
+//     }
+//     export interface Administrator extends Management, User, Employee {}
+
+//     // Another way, but more laboroius
+//     // export class Administrator implements Employee, User, Management {
+//     //     // Note! when run these messages are not seen or executed
+//     //     getHours(): string {
+//     //         throw new Error("Method not implemented.");
+//     //     }        
+//     //     getLastLogin(): string {
+//     //         throw new Error("Method not implemented.");
+//     //     }
+//     //     getSalary(): string {
+//     //         throw new Error("Method not implemented.");
+//     //     }
+//     // }
     
-    // Ideally this would be in a static class elsewhere
-    // derivedCtor parameter represents the constructor of the class that will receive the mixins
-    // baseCtors is an array of constructors representing the mixin classes
-    function applyMixins(derivedCtor: any, baseCtors: any[]) {
-        baseCtors.forEach(baseCtor => {
-            Object.getOwnPropertyNames(baseCtor.prototype).forEach(name => {
-                derivedCtor.prototype[name] = baseCtor.prototype[name];
-            });
-        });
-    }
+//     // Ideally this would be in a static class elsewhere
+//     // derivedCtor parameter represents the constructor of the class that will receive the mixins
+//     // baseCtors is an array of constructors representing the mixin classes
+//     function applyMixins(derivedCtor: any, baseCtors: any[]) {
+//         baseCtors.forEach(baseCtor => {
+//             Object.getOwnPropertyNames(baseCtor.prototype).forEach(name => {
+//                 derivedCtor.prototype[name] = baseCtor.prototype[name];
+//             });
+//         });
+//     }
 
-    // Pass in Administrator mixin class plus array of individual classes to generate new mixin version of Administrator
-    applyMixins(Administrator, [Employee, Management, User]);
+//     // Pass in Administrator mixin class plus array of individual classes to generate new mixin version of Administrator
+//     applyMixins(Administrator, [Employee, Management, User]);
 
-    const admin = new Administrator();
-    console.log(admin.getHours());
-    console.log(admin.getSalary());
-    console.log(admin.getLastLogin());
-}
+//     const admin = new Administrator();
+//     console.log(admin.getHours());
+//     console.log(admin.getSalary());
+//     console.log(admin.getLastLogin());
+// }
 
-namespace MixinUsedElsewhere {
+// namespace MixinUsedElsewhere {
 
-    // Notice how I don't need to call applyMixin again, and can create an instance of Administrator
-    // If you remove the call to applyMixin above, this will fail, as no mixin has been created
-    const administrator = new MixinsUsingApply.Administrator();
-    console.log(administrator.getHours());
-    console.log(administrator.getSalary());
-    console.log(administrator.getLastLogin());
+//     // Notice how I don't need to call applyMixin again, and can create an instance of Administrator
+//     // If you remove the call to applyMixin above, this will fail, as no mixin has been created
+//     const administrator = new MixinsUsingApply.Administrator();
+//     console.log(administrator.getHours());
+//     console.log(administrator.getSalary());
+//     console.log(administrator.getLastLogin());
 
-}
+// }
 
 namespace MixinsUsingComposer {
-    
-    // using a function that extends with new functionality
-    // The only thing I don't like about this method is having to shape functions ahead of time to be composable mixins
-    
-    // Utility composer from TypeScript Deep Dive
-    // represents constructor of T taking any (rest) parameters
-    type mixinComposer<T = {}> = new (...args: any[]) => T;
 
-    // Each mixin function should:
-    // 1. Accept a base class constructor as an argument.
-    // 2. Return a new class that extends the base class and adds new functionality.
-    // This allows you to compose multiple mixins by wrapping them around your base class.
+    // A type that represents "any class constructor" -> something you can call with 'new'.
+    // TInstance is the instance type it produces; defaults to 'object' so any class qualifies by default.
+    // Mixin functions use this as a constraint: their Base parameter must be a real class, not just any value.
 
+
+    // mixinComposer describes anything that can be called with new, accepts any constructor arguments, and creates an object of type TInstance
+    type mixinComposer<TInstance = object> = new (...args: any[]) => TInstance;
+
+    // Each mixin is a function: accepts a base class, returns a new class that extends it with added behavior
+
+
+    // This constructor type says the mixin can accept any class. The generic (TBase extends mixinComposer) remembers the exact class we passed in. 
+    // We then return a new class that extends that base class and adds one capability. In this example, the capability is getHours()
     function Employee<TBase extends mixinComposer>(Base: TBase) {
         return class extends Base {
             getHours(): string {
@@ -113,7 +120,10 @@ namespace MixinsUsingComposer {
         constructor(public empId: number) {}     
     }
 
-    export const Admin = Employee(User(Management(Administrator)));
+    export const Admin = Employee(   // outermost mixin applied last
+                            User(
+                              Management(Administrator)  // innermost — applied first
+                            ));
     const admin = new Admin(123);
     console.log(admin.getHours());
     console.log(admin.getSalary());
@@ -124,7 +134,7 @@ namespace MixinsUsingComposer {
 namespace PlainOldJavaScriptMixin {
 
     class Employee {
-        id; string;
+        id: number;
         constructor() {
             this.id = 99;
         }
