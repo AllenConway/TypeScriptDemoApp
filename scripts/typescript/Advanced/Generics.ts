@@ -1,14 +1,17 @@
 namespace Generics {
-    class Person {
-        public id: number;
-        public firstName: string;
-        public lastName: string;
+    // TKey defaults to number because most entities key on a numeric id
+    interface Entity<TKey = number> {
+        id: TKey;
     }
 
-    class Order {
-        public id: number;
-        public quantity: number;
-        public description: string;
+    interface Person extends Entity {
+        firstName: string;
+        lastName: string;
+    }
+
+    interface Order extends Entity {
+        quantity: number;
+        description: string;
     }
 
     enum PersonType {
@@ -28,9 +31,9 @@ namespace Generics {
 
     // Implementing interface without generics
     class PersonApiService implements PersonService {
-        save(person: Person) {
+        save(person: Person, personType: PersonType) {
             //Persist Person object downstream...
-            console.log(`Saved Person with id: ${person.id}`);
+            console.log(`Saved Person with id: ${person.id} of type '${PersonType[personType]}'`);
         }
     }
 
@@ -56,12 +59,6 @@ namespace Generics {
         save(person: Person);
     }
 
-    // Without using generics
-    interface ConcreteOrderRepository {
-        getAll(): Order[];
-        save(order: Order);
-    }
-
     // Using Generics now we have a single version of the repository
     // with the type to be provided later by consuming code
     interface GenericRepository<T, K> {
@@ -75,67 +72,94 @@ namespace Generics {
         constructor(private personApiService: PersonApiService) { }
 
         getAll(): Person[] {
-            let people: Array<Person> = new Array<Person>();
-            //let people: Person[] = []; //alternate way to declare
-
             //return some sample static data
-            let person1: Person = new Person();
-            person1.id = 1;
-            person1.firstName = "John";
-            person1.lastName = "Smith";
-            people.push(person1);
-
-            let person2: Person = new Person();
-            person2.id = 2;
-            person2.firstName = "Jane";
-            person2.lastName = "Smith";
-            people.push(person2);
-
-            return people;
+            return [
+                { id: 1, firstName: "John", lastName: "Smith" },
+                { id: 2, firstName: "Jane", lastName: "Smith" }
+            ];
         }
 
         save(value: Person, personType: PersonType) {
-            this.personApiService.save(value);
+            this.personApiService.save(value, personType);
             console.log(`Saved the following data: ${JSON.stringify(value)} of type '${PersonType[personType]}'`);
         }
 
     }
 
     //Create a person and save using the Repository
-    let peoplePerson = new Person();
-    peoplePerson.id = 5;
-    peoplePerson.firstName = "Allen";
-    peoplePerson.lastName = "Conway";
+    let peoplePerson: Person = { id: 5, firstName: "Allen", lastName: "Conway" };
 
     let personApiService: PersonApiService = new PersonApiService();
     let repo: PersonRepository = new PersonRepository(personApiService);
     repo.save(peoplePerson, PersonType.Happy);
 
 
-    let order = new Order();
+    let order: Order = { id: 100, quantity: 2, description: "Widget" };
     //Will not work as the type declare isn't correct.
     //'repo' is of type PersonRepository which implements GenericRepository<Person>, not order
     //repo.save(order, null);
 
     // Example using a class with a generic parameter
-    class hyphenateArray<T> {
+    class HyphenateArray<T> {
 
-        makeArrayHyphenated(input: T[]): T[] {                        
-            return input.reduce((prevValue, currentValue) => prevValue.concat(currentValue, "-"), []);
+        makeArrayHyphenated(input: T[]): string {
+            return input.join("-");
         }
 
     }
 
-    let haTStr = new hyphenateArray<string>();
+    let haTStr = new HyphenateArray<string>();
     let arrayTStr: string[] = ['a', 'b', 'c'];
     console.log(haTStr.makeArrayHyphenated(arrayTStr));
 
-    let haTNum = new hyphenateArray<number>();
+    let haTNum = new HyphenateArray<number>();
     let arrayTNum: number[] = [55, 99, 122]; 
     console.log(haTNum.makeArrayHyphenated(arrayTNum));
 
     // This will cause an error
     // let arrayTBool: boolean[] = [true, false];
     // let test = haTNum.makeArrayHyphenated(arrayTBool);   
-    
+
+    // The constraint means TEntity isn't 'any type' - it must be something with an id
+    class ApiService<TEntity extends Entity<string | number>> {
+
+        constructor(private resource: string) { }
+
+        getAll(): TEntity[] {
+            console.log(`GET /api/${this.resource}`);
+            return [];
+        }
+
+        getById(id: TEntity["id"]): TEntity | undefined {
+            console.log(`GET /api/${this.resource}/${id}`);
+            return undefined;
+        }
+
+        update(id: TEntity["id"], changes: Partial<TEntity>): TEntity | undefined {
+            console.log(`PUT /api/${this.resource}/${id}`, changes);
+            return undefined;
+        }
+
+    }
+
+    let personApi = new ApiService<Person>("people");
+    personApi.getAll();
+    personApi.getById(1);
+    personApi.update(1, { firstName: "Allen" });
+
+    let orderApi = new ApiService<Order>("orders");
+    orderApi.update(100, { quantity: 5 });
+
+    // Invoices key on a string id, so the default type on Entity gets overridden
+    interface Invoice extends Entity<string> {
+        amount: number;
+    }
+
+    let invoiceApi = new ApiService<Invoice>("invoices");
+    invoiceApi.getById("INV-001");
+
+    // These will cause errors
+    // personApi.getById("1");                      // Person ids are numbers, not strings
+    // personApi.update(1, { email: "a@b.com" });   // 'email' is not a property of Person
+
 }  

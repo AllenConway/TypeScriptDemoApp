@@ -29,40 +29,32 @@ namespace DeclarationMerging {
     console.log(`Here is the car data: ${JSON.stringify(mustang)}`);
 
     // ***Interface merging with functions on Interfaces***
-    class Automobile { }
-    class LawnMower { }
-    class Motorcycle { }
-    class Moped { }
-    
+    // TypeScript matches on shape, not name: without a distinct member these would all be the same type and the overloads couldn't tell them apart
+    class Automobile { wheels = 4; }
+    class LawnMower { blades = 1; }
+    class Motorcycle { handlebars = true; }
+    class Moped { pedals = true; }
+
     interface Engine {        
-        start(engineType: Automobile);
+        start(engineType: Automobile): void;
     }
 
     interface Engine {
-        start(engineType: LawnMower);
+        start(engineType: LawnMower): void;
     }
 
     interface Engine {
-        start(engineType: Motorcycle);
-        start(engineType: Moped);
+        start(engineType: Motorcycle): void;
+        start(engineType: Moped): void;
     }
 
-    class OperateEngines implements Engine {
-
-        // These are only added for example and not needed; the single implementation is below
-        // start(engineType: Automobile);        
-        // start(engineType: LawnMower);
-        // start(engineType: Motorcycle);
-        // start(engineType: Moped) {};
-
-        // Even though we merged the interface declaration and have overloaded signatures, there will only be one implementation selected
-        // This is because the transpiled JS doesn't have types to differentiate, so the overloads are shown only at time of development
-        // Take a peek at the JS to see the implementation
-        start(engineType: Automobile) {
-            // put the key in the ignition
-            // push on the clutch
-            // turn the ignition...
-        }      
+    // Three declarations produce one Engine with four 'start' overloads
+    // Hover each call: the "x of 4" in the tooltip reveals the merged order, since later declarations sort first
+    function startVehicles(engine: Engine) {
+        engine.start(new Automobile());
+        engine.start(new LawnMower());
+        engine.start(new Motorcycle());
+        engine.start(new Moped());
     }
 
     //*** Example of merging an Interface and a class***
@@ -87,8 +79,40 @@ namespace DeclarationMerging {
     class MechanicalSystems {
         checkSystems(){
             // this is valid as the class and interface are in the same namespace/module and are merged into a single type
+            // Merging adds the type, not the member: nothing assigns transmissionType, so this is undefined at runtime
             let transmission = this.transmissionType;
         }
+    }
+
+    // Types can't use Declaration Merging like Interfaces can leverage:
+    // This is because types are a unique type entity
+    // uncomment to see issue
+    // type FullTimeEmployee = {
+    //     id: number;
+    //     yearsTenure: number,
+    // }
+
+    // type FullTimeEmployee = {
+    //     managerId: number;
+    //     daysPTO: number,
+    // }  
+
+    // Interfaces as we've seen can use declaration merging and this will appear as a single interface
+    interface FullTimeEmployee {
+        id: number;
+        yearsTenure: number,
+    }
+
+    interface FullTimeEmployee {
+        managerId: number;
+        daysPTO: number,
+    }  
+
+    let fullTimeEmployee: FullTimeEmployee = {
+        id: 123,
+        yearsTenure: 12,
+        managerId: 456,
+        daysPTO :25
     }
 
 }
@@ -97,7 +121,7 @@ export class DeclarationMergingExternal {} //sample module usage to allow use of
 declare global{  //Augment the global scope
     interface HTMLElement {
         //Add additional functionality
-        myFunction();
+        myFunction(): void;
         myValue: string; 
     }
 }
