@@ -55,12 +55,14 @@
 
 namespace ESDecorators {
 
+    // factory -> MUST have parens, you're calling it to get the decorator
     @message("Hello from the employee class")
     export class Employee {
         public firstName: string;
         public lastName: string;
 
-        @log //careful not to add ()
+        // careful not to add (), plain decorator -> NO parens, it IS the decorator
+        @log
         getSalary() {
             return 1000000;
         }
