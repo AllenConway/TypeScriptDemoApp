@@ -34,7 +34,7 @@ namespace SatisfiesOperator {
     city: "Asheville",
     state: "NC",
     zip: "28802",
-    //phone: "828-456-7890"  // <--uncomment to see error
+    // phone: "828-456-7890"  // <--uncomment to see error
   } satisfies Customer; // This will cause a type error because object literals are strictly checked
 
   const customerExtraProp2 = {

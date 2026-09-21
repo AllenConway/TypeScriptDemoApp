@@ -135,6 +135,9 @@ namespace Generics {
             return undefined;
         }
 
+        // example without generic constraints where there is no relationship between the values
+        // update(id: string | number, changes: object): any
+
         update(id: TEntity["id"], changes: Partial<TEntity>): TEntity | undefined {
             console.log(`PUT /api/${this.resource}/${id}`, changes);
             return undefined;

@@ -85,7 +85,8 @@ namespace DeclarationMerging {
     }
 
     // Types can't use Declaration Merging like Interfaces can leverage:
-    // This is because types are a unique type entity
+    // A type alias is a single, final name for one specific shape. It's a one-time definition
+    // Interfaces are open; type aliases are closed.
     // uncomment to see issue
     // type FullTimeEmployee = {
     //     id: number;
