@@ -6,5 +6,6 @@
     "debug.node.autoAttach": "on",
     "gitlens.currentLine.enabled": false,
     "gitlens.codeLens.enabled": false,
-    "js/ts.experimental.useTsgo": true
+    "js/ts.experimental.useTsgo": true,
+    "js/ts.tsdk.path": "node_modules\\typescript"
 }

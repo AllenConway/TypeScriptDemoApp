@@ -1,115 +1,56 @@
 namespace SatisfiesOperator {
-  // The `satisfies` operator is a TypeScript feature that ensures an object  
-  // conforms to a specific type without changing its inferred type.
-  // The syntax of the `satisfies` operator is as follows:
-  // const obj = { ... } satisfies Type;
-  // In this syntax, `obj` is the object to check, and `Type` is the type to check against.
-  // For example, you can use the `satisfies` operator to ensure that an object conforms to an interface:
-
   interface Customer {
+    id: string | number;
     firstName: string;
     lastName: string;
-    address1: string;
-    address2?: string;
-    city: string;
-    state: string;
-    zip: string;
   }
 
-  const customer = {
+  // Example 1: Type annotation vs. `satisfies`
+
+  // Annotation: the variable's type BECOMES Customer, so id is `string | number`.
+  const customer1: Customer = {
+    id: 1,
     firstName: "Allen",
-    lastName: "Conway",
-    address1: "123 Main St.",
-    city: "Asheville",
-    state: "NC",
-    zip: "28802"
-  } satisfies Customer; // TypeScript ensures `customer` conforms to `Customer` while preserving its inferred type
+    lastName: "Conway"
+  };
+  // customer1.id.toFixed(0); // Error: 'toFixed' does not exist on type 'string'
 
-  // If `customer` did not conform to the `Customer` interface, TypeScript would raise a type error.
+  // `satisfies`: TypeScript checks the object against Customer,
+  // but keeps the more specific inferred type, so id is known to be a `number`.
+  const customer2 = {
+    id: 2,
+    firstName: "Jane",
+    lastName: "Smith"
+  } satisfies Customer;
+  console.log(customer2.id.toFixed(0)); // Works
 
-  const customerExtraProp1 = {
-    firstName: "Allen",
-    lastName: "Conway",
-    address1: "123 Main St.",
-    city: "Asheville",
-    state: "NC",
-    zip: "28802",
-    // phone: "828-456-7890"  // <--uncomment to see error
-  } satisfies Customer; // This will cause a type error because object literals are strictly checked
+  // Example 2: `satisfies` vs. `as`
 
-  const customerExtraProp2 = {
-    firstName: "Allen",
-    lastName: "Conway",
-    address1: "123 Main St.",
-    city: "Asheville",
-    state: "NC",
-    zip: "28802",
-    email: "allen@allenconway.net" // <--extra property
-  }
+  // `as` is a type assertion: "Trust me, this is a Customer."
+  // TypeScript allows it even though lastName is missing.
+  const customer3 = {
+    id: 3,
+    firstName: "Sam"
+  } as Customer;
+  console.log(customer3.lastName); // undefined at runtime - no compile-time warning!
 
-  // TypeScript does not enforce extra property checks on variables that hold object values
-  // satisfies Customer ensures that rawUser meets the minimum required structure
-  const customerExtraProp = customerExtraProp2 satisfies Customer; // No error
-  console.log(customerExtraProp.email);
+  // `satisfies` checks compatibility instead of trusting us.
+  // const customer4 = {
+  //   id: 4,
+  //   firstName: "Sam"
+  // } satisfies Customer;
+  // Error: Property 'lastName' is missing in type '{ id: number; firstName: string; }'
 
-  interface UserProfile {
-    name: string;
-    email: string;
-  }
+  // Example 3: Compile-time only
 
-  function getUserFromApi(): UserProfile {
-    // Simulate an API response. Don't return directly to allow example 
-    // of additional properties not in the interface
-    const apiResponse = {
-      name: "Allen",
-      email: "allen@allenconway.net",
-      role: "admin",
-      lastLogin: "2025-02-25",
-    };
+  // `satisfies` is erased when TypeScript compiles to JavaScript.
+  // It does NOT validate JSON or API responses at runtime - use runtime validation for that.
 
-    return apiResponse;
-  }
+  // JSON.parse() returns `any`, and `any` passes every type check - so no error here,
+  // even though the JSON is missing id and lastName.
+  const parsed = JSON.parse('{ "firstName": "Allen" }') satisfies Customer; // No error!
+  console.log(parsed.lastName); // undefined at runtime
 
-  const user = getUserFromApi() satisfies UserProfile;
-
-  // `user` has `name` and `email` (valid)
-  console.log(user.name);
-  console.log(user.email);
-  // Exists at runtime, but TypeScript won't auto-suggest or allow direct access
-  // console.log(user.role); // <--uncomment to see error
-
-  // Contrast `satisfies` with `as`:
-  // In this example, we use `as` to cast the result of `getUserFromApi` to `UserProfile`.
-  // This allows us to access the properties defined in `UserProfile`, but it also allows us to access extra properties
-  // by casting to `any`, which is not type-safe and should be used with caution.
-  const fullApiResponse = getUserFromApi() as UserProfile;
-  console.log(fullApiResponse.name); // Works
-  console.log(fullApiResponse.email); // Works
-  console.log((fullApiResponse as any).role); // Works, but not type-safe
-
-
-  // Another example not using hardcoded data to simulate build-time checking
-  interface Product {
-    id: number;
-    name: string;
-    price: number;
-  }
-
-  // Simulate an API client that could return any shape
-  // The issue here ultimately is that the API response is `unknown`
-  async function fetchProductFromApi(productId: number): Promise<unknown> {
-    // Implementation omitted; could return any shape at runtime
-    return await fetch(`/api/products/${productId}`).then(res => res.json());
-  }
-
-  // Usage: TypeScript checks structure at build time
-  async function processProduct(productId: number) {
-    const apiResponse = await fetchProductFromApi(productId);
-
-    // TypeScript will error at build time because it's not satisfying the minimum required structure
-    // To fix, update the API client to return `Promise<Product>` instead of `Promise<unknown>`
-    // const product = apiResponse satisfies Product; // Error: Property 'id,name,price' is missing in type 'unknown' but required in type 'Product'
-
-  }
-
+  // Key takeaway: `satisfies` checks that a value meets a type's requirements
+  // without unnecessarily replacing the type TypeScript inferred for that value.
 }
